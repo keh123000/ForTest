@@ -1,7 +1,7 @@
 import os
 
-from ui_engine.common.common import *
-from ui_engine.common.exceptions import *
+from auto_ui.ui_engine.common.common import *
+from auto_ui.ui_engine.common.exceptions import *
 from selenium import webdriver
 
 import json

@@ -16,13 +16,6 @@ class DrawGplot(object):
         )
         self.line_width = 1
 
-    def __del__(self):
-        pass
-
-
-    def _default_setting(self):
-        self.graph.set_global_opts()
-
     def setting(self, title=None, line_width: int = None):
         if title:
             self.graph.set_global_opts(title_opts=opts.TitleOpts(title=title), )

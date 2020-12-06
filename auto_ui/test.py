@@ -41,7 +41,7 @@ import cv2
 # print(b[50])
 
 
-from ui_engine import ui_operation
+from auto_ui.ui_engine import ui_operation
 
 
 uoe = ui_operation.UiOperation()

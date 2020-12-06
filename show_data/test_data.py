@@ -83,7 +83,7 @@ links = [
 
 ]
 
-from config import *
+from show_data.config import *
 
 
 def add_attr(nodes):

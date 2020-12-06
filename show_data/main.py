@@ -1,6 +1,6 @@
-import util
-from test_data import *
-from forecharts import *
+from show_data.util import *
+from show_data.test_data import *
+from show_data.forecharts import *
 
 def run():
     dg = DrawGplot()

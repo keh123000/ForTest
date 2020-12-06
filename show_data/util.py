@@ -2,6 +2,27 @@ import os
 import json
 import base64
 from PIL import Image
+import wmi
+
+
+def change_ip():
+    # Obtain network adaptors configurations
+    nic_configs = wmi.WMI().Win32_NetworkAdapterConfiguration(IPEnabled=True)
+
+    # First network adaptor
+    nic = nic_configs[0]
+    print(nic)
+
+    # IP address, subnetmask and gateway values should be unicode objects
+    ip = u'192.168.0.168'
+    subnetmask = u'255.255.255.0'
+    gateway = u'192.168.0.1'
+
+    # # Set IP address, subnetmask and default gateway
+    # # Note: EnableStatic() and SetGateways() methods require *lists* of values to be passed
+    # nic.EnableStatic(IPAddress=[ip], SubnetMask=[subnetmask])
+    # nic.SetGateways(DefaultIPGateway=[gateway])
+    return 1
 
 
 def convert_pic(src_fp, dst_fp=None, src_fmt='JPG', dst_fmt=None):
