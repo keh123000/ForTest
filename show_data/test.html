@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+</head>
+<body>
+<div id="myChart" style="width: 800px; height: 600px;"></div>
+
+<script type="text/javascript">
+    var chart = echarts.init(document.getElementById('myChart'));
+
+    var originData = [
+        {value: 335, name: '直接访问'},
+        {value: 310, name: '邮件营销'},
+        {value: 234, name: '联盟广告'},
+        {value: 135, name: '视频广告'},
+        {value: 1548, name: '搜索引擎'},
+    ];
+
+    var color = ['#4a6dbf', '#15b3bc', '#f37a18', '#83c775', ' #fcb552'];
+
+    originData.forEach(function (list, i) {
+        list.itemStyle = {
+            color: color[i],
+        };
+    });
+
+    var data = [].slice.call(originData)
+
+    var option = {
+        tooltip: {},
+        toolbox: {
+            feature: {
+                myRestore: {
+                    show: true,
+                    title: '还原',
+                    icon: 'M3.8,33.4 M47,18.9h9.8V8.7 M56.3,20.1 C52.1,9,40.5,0.6,26.8,2.1C12.6,3.7,1.6,16.2,2.1,30.6 M13,41.1H3.1v10.2 M3.7,39.9c4.2,11.1,15.8,19.5,29.5,18 c14.2-1.6,25.2-14.1,24.7-28.5',
+                    onclick: refreshChart,
+                },
+            },
+        },
+        legend: {  // 图例
+            icon: 'rect',
+            data: [],
+            itemWidth: 12,
+            itemHeight: 12,
+            bottom: 'bottom',
+        },
+        grid: {
+            top: '5%',
+            left: '5%',
+            right: '5%',
+            bottom: '40',
+            containLabel: true,
+        },
+        xAxis: {
+            type: 'category',
+            boundaryGap: true,
+            splitLine: {  // grid上每一条竖轴线
+                show: true,
+                interval: 'auto',
+                lineStyle: {
+                    color: '#e8e8e8',
+                },
+            },
+            axisLine: {  // x刻度上方的横轴线
+                lineStyle: {
+                    color: '#e8e8e8',
+                },
+            },
+            axisLabel: {  // x轴的刻度
+                textStyle: {
+                    color: '#999',
+                },
+            },
+            data: [],
+        },
+        yAxis: {
+            type: 'value',
+            boundaryGap: false,
+            axisLine: {  // y刻度上方的横轴线
+                lineStyle: {
+                    color: '#e8e8e8',
+                },
+            },
+            splitLine: {  // grid上每一条竖轴线
+                lineStyle: {
+                    color: '#e8e8e8',
+                },
+            },
+            axisLabel: {  // y轴的刻度
+                textStyle: {
+                    color: '#999',
+                },
+            },
+        },
+        series: [{
+            name: 'pie',
+            type: 'pie',
+            center: ['50%', '45%'],
+            radius: ['0', '45%'],
+            data: data,
+        }, {
+            name: '模拟一个pie容器',
+            type: 'pie',
+            center: ['50%', '45%'],
+            radius: ['0', '49%'],
+            cursor: 'default',
+            hoverAnimation: true,
+            hoverOffset: 2,
+            label: {
+                show: false,
+            },
+            labelLine: {
+                show: false,
+            },
+            tooltip: {
+                padding: 0,
+                formatter: function () {
+                    return '';
+                },
+            },
+            z: 0,
+            data: [{
+                value: 0,
+                name: '容器',
+                itemStyle: {
+                    color: '#000',
+                    opacity: '.1',
+                },
+            }],
+        }],
+    };
+
+    chart.setOption(option, true);
+
+    var sector = null;  // 鼠标点击选中的扇形
+    var sectorIndex;  // 选中扇形在data中的index
+    var sx;  // 原型横坐标距离鼠标位置横坐标的偏移距离
+    var sy;  // 原型纵坐标距离鼠标位置纵坐标的偏移距离
+    var zr = chart.getZr();  // 生成一个zrender实例
+    var circleData = null;  // 记录鼠标选中的小圆点的数据
+    var circleEl = [];  // 保存生成的小圆点的数据，注意目前只有push，没有将废数据清除
+
+    function refreshChart() {
+        data = [].slice.call(originData)
+        option.series = {
+            name: 'pie',
+            type: 'pie',
+            center: ['50%', '45%'],
+            radius: ['0', '45%'],
+            data: data,
+        };
+
+        circleEl.forEach(function (list) {
+            zr.remove(list.el);
+        });
+        // zr.clear();  // clear会把整个chart画布清除
+        sector = null;
+        chart.setOption(option, true);
+    }
+
+    // chart.on 绑定的事件只能在chart图形内部执行
+    // 利用chart绑定的事件会比zrender绑定的事件先执行的特点来判断小圆是否进入饼图范围
+    chart.on('mouseup', function (params) {
+        if (params.componentSubType === 'pie') {
+            // 圆
+            if (circleData) {
+                data.push(circleData.data);
+                chart.setOption({
+                    series: {
+                        data: data,
+                    }
+                });
+                zr.remove(circleData.el);
+                circleData = null;
+            }
+
+            // 扇形
+            if (sector) {
+                zr.remove(sector);
+                sector = null;
+            }
+        }
+    });
+
+    zr.on('mousedown', function (e) {
+        // 如果出现：触发鼠标点击扇形事件，并且移动到echarts的DOM元素外，释放鼠标点击，
+        // 再移动到饼图内，点击鼠标，则会再次触发一个鼠标点击和释放事件，这时候，上一个选中的扇形不会被正确的移除
+        // 所以在mosuedown多一个对sector的判定
+        if (e.target && sector) {
+            zr.remove(sector);
+            sector = null;
+        }
+        if (e.topTarget) {
+            // 这个是pie容器
+            if (e.target && e.target.seriesIndex === 1) {
+                return;
+            }
+
+            // 发现一个圆
+            circleEl.forEach(function (list) {
+                if (list.id === e.topTarget.id) {
+                    circleData = list;
+                }
+            });
+
+            // 是一个扇形
+            if (!circleData && e.target && !e.target.__title) {
+                var target = e.target;
+                sectorIndex = target.dataIndex;
+                sector = new echarts.graphic.Sector({
+                    shape: echarts.util.extend({}, target.shape),
+                    style: {
+                        fill: target.style.fill,
+                        opacity: 0.5
+                    },
+                    silent: true,
+                    z: 1000,
+                });
+
+                sx = e.offsetX - target.shape.cx;
+                sy = e.offsetY - target.shape.cy;
+
+                zr.add(sector);
+
+            }
+        }
+    });
+
+    zr.on('mousemove', function (e) {
+        if (circleData) {
+            circleData.el.setShape({
+                cx: e.offsetX,
+                cy: e.offsetY,
+            });
+        } else if (sector) {
+            sector.setShape({
+                cx: e.offsetX - sx,
+                cy: e.offsetY - sy,
+            });
+
+            chart.dispatchAction({
+                type: 'showTip',
+                seriesIndex: 0,
+                dataIndex: sectorIndex,
+                position: [e.offsetX + 24, e.offsetY + 24],  // 加24是为了避免tip影响mouseup事件判定
+            });
+        }
+    });
+
+    zr.on('mouseup', function (e) {
+        if (circleData) {
+            circleData = null;
+        }
+        if (sector) {
+            var circle = new echarts.graphic.Circle({
+                shape: {
+                    cx: e.offsetX,
+                    cy: e.offsetY,
+                    r: 10,
+                },
+                style: {
+                    text: data[sectorIndex].name + '：' + data[sectorIndex].value,
+                    textFill: sector.style.fill,
+                    fill: sector.style.fill,
+                    textOffset: [0, -20],
+                },
+                silent: true,
+                z: 1000,
+            });
+            zr.add(circle);
+            circleEl.push({
+                id: e.topTarget.id + 1,
+                el: circle,
+                data: data[sectorIndex],
+            });
+
+            data.splice(sectorIndex, 1);
+            chart.setOption({
+                series: {
+                    data: data,
+                }
+            });
+
+            zr.remove(sector);
+            sector = null;
+        }
+    });
+</script>
+</body>
+</html>

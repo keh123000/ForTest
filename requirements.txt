@@ -1,0 +1,10 @@
+numpy==1.16.4
+xlrd
+pyecharts
+snapshot_selenium
+opencv-python
+pillow
+wmi
+selenium
+requests
+pyinstaller

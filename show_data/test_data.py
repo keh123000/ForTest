@@ -70,16 +70,16 @@ nodes = [
 ]
 
 links = [
-    {"source": "Core router", "target": "DC"},
-    {"source": "Core router", "target": "AP"},
-    {"source": "Core router", "target": "AP2"},
-    {"source": "DC", "target": "Splitter1"},
-    {"source": "DC", "target": "Splitter2"},
-    {"source": "AP", "target": "TV"},
-    {"source": "AP2", "target": "Firewall"},
-    {"source": "Firewall", "target": "Terminal"},
-    {"source": "Firewall", "target": "Terminal2"},
-    {"source": "Firewall", "target": "Terminal3"}
+    {"source": "Core router", "target": "DC", "name": ""},
+    {"source": "Core router", "target": "AP", "name": ""},
+    {"source": "Core router", "target": "AP2", "name": ""},
+    {"source": "DC", "target": "Splitter1", "name": ""},
+    {"source": "DC", "target": "Splitter2", "name": ""},
+    {"source": "AP", "target": "TV", "name": ""},
+    {"source": "AP2", "target": "Firewall", "name": ""},
+    {"source": "Firewall", "target": "Terminal", "name": ""},
+    {"source": "Firewall", "target": "Terminal2", "name": ""},
+    {"source": "Firewall", "target": "Terminal3", "name": ""}
 
 ]
 
@@ -91,6 +91,10 @@ def add_attr(nodes):
         node['symbol'] = 'image://%s' % IMG_MAPPING.get(node['type']).get('b64code')
         node['symbolSize'] = 50
         node['value'] = ['0.0.0.0']
+        node['is_fixed'] = True
+        if node['name'] == 'Core router':
+            node['x'] = 50
+            node['y'] = 50
     return nodes
 
 

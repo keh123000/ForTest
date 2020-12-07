@@ -13,6 +13,15 @@ class DrawGplot(object):
                 height=height,
                 bg_color='rgba(255,255,255)'
             )
+        ).set_global_opts(
+            # 设置显示工具栏
+            toolbox_opts=opts.ToolboxOpts(
+                feature=opts.ToolBoxFeatureOpts(
+                    save_as_image=opts.ToolBoxFeatureSaveAsImageOpts(
+                        name='networks',  # 设置工具栏图片保存的文件名
+                    ),
+                )
+            )
         )
         self.line_width = 1
 
@@ -29,6 +38,7 @@ class DrawGplot(object):
                        links,
                        repulsion=1000,
                        is_draggable=True,  # 节点是否可拖拽，只在使用力引导布局的时候有用。
+                       layout='force',
                        linestyle_opts=opts.LineStyleOpts(width=self.line_width),
                        )
         return self
