@@ -1,0 +1,52 @@
+https://pyecharts.org/#/zh-cn/intro
+
+https://pyecharts.org/#/zh-cn/global_options
+
+https://pyecharts.org/#/zh-cn/series_options
+
+
+
+
+https://blog.csdn.net/V_lq6h/article/details/105302165
+
+
+
+VMWARE WORKSTATION PRO V16.1.0 官方版+激活密钥
+ZF3R0-FHED2-M80TY-8QYGC-NPKYF
+
+
+sudo gpasswd -a keh docker
+
+
+docker学习（一）ubuntu上安装docker
+https://www.cnblogs.com/walker-lin/p/11214127.html
+
+{
+“registry-mirrors”: [“http://hub-mirror.c.163.com”]
+}
+
+
+docker pull mongo:4.4.2
+
+docker pull redis:6.0.9
+
+docker pull centos:centos7
+
+docker pull ubuntu:20.10
+
+docker pull mysql:8.0
+
+docker pull jenkins:2.60.2
+
+docker pull nginx:stable
+
+
+记录使用echarts的graph类型绘制流程图全过程（一）-x，y位置的计算
+https://www.cnblogs.com/webhmy/p/11606448.html
+
+
+Echarts3 关系图-力导向布局图
+https://www.cnblogs.com/koala2016/archive/2016/12/01/6123003.html
+
+docker安装mongoDb并创建用户
+http://www.apgblogs.com/docker-mongodb/

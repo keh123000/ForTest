@@ -1,0 +1,19 @@
+{
+  "test_nodes": [
+    {
+      "id": "1",
+      "type": "DC",
+      "name": "DC",
+      "cn_name": "",
+      "sub_node": "DC",
+      "location": {
+        "x": 150,
+        "y": 222
+      },
+      "size": {
+        "width": 30,
+        "height": 30
+      }
+    }
+  ]
+}
