@@ -8,3 +8,4 @@ wmi
 selenium
 requests
 pyinstaller
+flask

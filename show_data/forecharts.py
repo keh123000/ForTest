@@ -43,6 +43,9 @@ class DrawGplot(object):
                        )
         return self
 
+    def render(self, path):
+        return self.graph.render(path)
+
     def save_img(self, fp=None):
         if fp is None:
             fp = 'result.png'
