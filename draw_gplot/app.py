@@ -19,5 +19,10 @@ def hello_world():
 
 
 if __name__ == '__main__':
+    from controller.users import users
+    app.register_blueprint(users, url_prefix='')
+
+
+
     app.debug = True
     app.run(port=1680)

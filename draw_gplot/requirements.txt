@@ -9,3 +9,8 @@ selenium
 requests
 pyinstaller
 flask
+redis
+pymongo
+elasticsearch
+pymysql
+mongoengine
