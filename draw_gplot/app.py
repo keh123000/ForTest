@@ -4,9 +4,9 @@
 # @Email   : 26467568@qq.com
 # @File    : app.py
 
+from flask_restful import Api
 from flask import Flask,render_template
 app = Flask(__name__, static_folder='static', static_url_path='/static', template_folder='templates')
-
 
 # def run():
 #     dg = DrawGplot()
@@ -19,8 +19,16 @@ def hello_world():
 
 
 if __name__ == '__main__':
-    from controller.users import users
+    api = Api(app)
+    from views.user import User,users
+
     app.register_blueprint(users, url_prefix='')
+
+    api.add_resource(User, '/user/<int:id>', endpoint='user')
+
+    # from controller.users import users
+
+
 
 
 
