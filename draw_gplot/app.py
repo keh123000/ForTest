@@ -5,8 +5,10 @@
 # @File    : app.py
 
 from flask_restful import Api
-from flask import Flask,render_template
+from flask import Flask, render_template
+
 app = Flask(__name__, static_folder='static', static_url_path='/static', template_folder='templates')
+
 
 # def run():
 #     dg = DrawGplot()
@@ -20,16 +22,20 @@ def hello_world():
 
 if __name__ == '__main__':
     api = Api(app)
-    from views.user import User,users
+    from views.user import User, users
 
     app.register_blueprint(users, url_prefix='')
+    api.add_resource(User, '/user/<string:id>', endpoint='user')
 
-    api.add_resource(User, '/user/<int:id>', endpoint='user')
+    from views.node import Node, nodes
 
-    # from controller.users import users
+    app.register_blueprint(nodes, url_prefix='')
+    api.add_resource(Node, '/node/<string:id>', endpoint='node')
 
+    from views.link import Link, links
 
-
+    app.register_blueprint(links, url_prefix='')
+    api.add_resource(Link, '/link/<string:id>', endpoint='link')
 
 
     app.debug = True

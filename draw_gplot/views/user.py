@@ -7,6 +7,7 @@
 from flask import request, Blueprint, render_template, jsonify
 from flask_restful import Api, Resource
 from models.users import *
+from common.util import *
 
 
 class User(Resource):
@@ -48,7 +49,7 @@ def add_user():
         status = 2
         message = '已注册'
         data = {
-            'create_time': user.create_time
+            'create_time': user.get('create_time')
         }
 
     return jsonify(
@@ -63,4 +64,9 @@ def add_user():
 @users.route('/users', methods=['GET'])
 def get_users():
     users = get_all_users()
-    return '获取所有用户信息'
+    users = convertMongoToDict(list(users))
+    return {
+        'status': 0,
+        'message': 'SUCCESS',
+        'data': users
+    }
