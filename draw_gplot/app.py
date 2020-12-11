@@ -7,12 +7,9 @@
 from flask_restful import Api
 from flask import Flask, render_template
 
+from config import *
+
 app = Flask(__name__, static_folder='static', static_url_path='/static', template_folder='templates')
-
-
-# def run():
-#     dg = DrawGplot()
-#     dg.setting(title='网络拓扑图demo', line_width=2).exec_draw(nodes, links).save_img()
 
 
 @app.route('/')
@@ -36,6 +33,11 @@ if __name__ == '__main__':
 
     app.register_blueprint(links, url_prefix='')
     api.add_resource(Link, '/link/<string:id>', endpoint='link')
+
+    from views.graph import Graph, graphs
+
+    app.register_blueprint(graphs, url_prefix='')
+    api.add_resource(Graph, '/graph/<string:id>', endpoint='graph')
 
 
     app.debug = True

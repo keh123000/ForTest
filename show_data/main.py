@@ -4,7 +4,7 @@ from show_data.util import *
 from show_data.test_data import *
 from show_data.forecharts import *
 
-app = Flask(__name__, static_folder='static', static_url_path='app/static', template_folder='templates')
+app = Flask(__name__, static_folder='static', static_url_path='/static', template_folder='templates')
 
 
 def run():

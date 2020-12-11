@@ -1,7 +1,9 @@
 from flask import request, Blueprint, render_template, jsonify
 from flask_restful import Api, Resource
 from models.links import *
+from models.users import *
 from common.util import *
+from .cache import *
 
 
 class Link(Resource):
@@ -9,7 +11,13 @@ class Link(Resource):
         status = 1
         message = 'QUERY SUCCESS'
         data = link_get_by_id(id)
-        data = convertMongoToDict(data)
+        if data:
+            user_data = user_get_by_id(data.user_id)
+            user_data = convertMongoToDict(user_data)
+            data = convertMongoToDict(data)
+            if 'user_id' in data.keys():
+                data.pop('user_id')
+                data['user'] = user_data
         return jsonify(
             {
                 'status': status,
@@ -48,7 +56,7 @@ class Link(Resource):
         status = 1
         message = 'DELETE SUCCESS'
         data = {}
-        # 更改节点状态做逻辑删除
+        # 更改连线状态做逻辑删除
         link_update_by_id(id, status=0)
         return jsonify(
             {
@@ -76,7 +84,7 @@ def add_link():
     rome_port_id1 = request.form.get('rome_port_id1')
     rome_port_id2 = request.form.get('rome_port_id2')
 
-    link = link_get_by_userid_and_node_and_source_and_target(user_id, source_node_id, target_node_id)
+    link = link_get_by_userid_and_source_and_target(user_id, source_node_id, target_node_id)
     if not link:
         try:
             link_add(user_id, source_node_id, target_node_id, describe, rome_port_id1, rome_port_id2)
@@ -106,8 +114,8 @@ def add_link():
 @links.route('/links/<string:user_id>', methods=['GET'])
 def get_links_by_user_id(user_id):
     data = links_get_by_user_id(user_id)
-    print(data)
-    # data = convertMongoToDict(list(data))
+    data = convertMongoToDict(list(data))
+    cache_add_graph_data('links',user_id,data)
     return {
         'status': 0,
         'message': 'SUCCESS',

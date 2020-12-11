@@ -1,7 +1,9 @@
 from flask import request, Blueprint, render_template, jsonify
 from flask_restful import Api, Resource
 from models.nodes import *
+from models.users import *
 from common.util import *
+from .cache import *
 
 
 class Node(Resource):
@@ -9,7 +11,13 @@ class Node(Resource):
         status = 1
         message = 'QUERY SUCCESS'
         data = node_get_by_id(id)
-        data = convertMongoToDict(data)
+        if data:
+            user_data = user_get_by_id(data.user_id)
+            user_data = convertMongoToDict(user_data)
+            data = convertMongoToDict(data)
+            if 'user_id' in data.keys():
+                data.pop('user_id')
+                data['user'] = user_data
         return jsonify(
             {
                 'status': status,
@@ -49,7 +57,7 @@ class Node(Resource):
         message = 'DELETE SUCCESS'
         data = {}
         # 更改节点状态做逻辑删除
-        node_update_by_id(id,status=0)
+        node_update_by_id(id, status=0)
         return jsonify(
             {
                 'status': status,
@@ -108,6 +116,8 @@ def add_node():
 def get_nodes_by_user_id(user_id):
     data = nodes_get_by_user_id(user_id)
     data = convertMongoToDict(list(data))
+
+    cache_add_graph_data('nodes', user_id, data)
     return {
         'status': 0,
         'message': 'SUCCESS',

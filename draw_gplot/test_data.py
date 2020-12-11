@@ -86,15 +86,15 @@ links = [
 from show_data.config import *
 
 
-def add_attr(nodes):
+def add_node_attr(nodes):
     for node in nodes:
         node['symbol'] = 'image://%s' % IMG_MAPPING.get(node['type']).get('b64code')
         node['symbolSize'] = 50
         node['value'] = ['0.0.0.0']
         node['is_fixed'] = True
-        if node['name'] == 'Core router':
-            node['x'] = 50
-            node['y'] = 50
+        # if node['name'] == 'Core router':
+        #     node['x'] = 50
+        #     node['y'] = 50
     return nodes
 
 

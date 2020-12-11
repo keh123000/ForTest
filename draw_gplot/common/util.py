@@ -26,8 +26,6 @@ def convertMongoToDict(o):
                     convert(l)
             elif isinstance(value, datetime):
                 dic_data[key] = value.strftime('%Y-%m-%d %H:%M:%S')
-            # elif isinstance(value, BaseDocument):
-            #     ret.append(exec_doc_convert(value))
             else:
                 if isinstance(value, ObjectId):
                     dic_data[key] = str(dic_data.pop(key))
@@ -139,8 +137,7 @@ def get_b64code(fp):
     if os.path.exists(fp):
         with open(fp, 'rb') as f:
             base64_data = base64.b64encode(f.read())
-            s = base64_data.decode()
-            data = 'data:image/png;base64,%s' % s
+            data = base64_data.decode()
     return data
 
 
@@ -158,12 +155,6 @@ def write_json(fp, data):
     with open(fp, "w") as f:
         json.dump(data, f)
     return 1
-
-
-fp = './img_data_mapping.json'
-
-data = {
-}
 
 #
 # src_fp = 'D://DataCenter//tmp//fortest//img'

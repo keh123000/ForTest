@@ -37,7 +37,7 @@ def add_user():
     username = request.form.get('username')
     password = request.form.get('password')
 
-    user = get_user_by_name(username)
+    user = user_get_by_name(username)
     if not user:
         try:
             user_add(username, password)
