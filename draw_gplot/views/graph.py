@@ -126,6 +126,7 @@ def get_graphs():
         'data': data
     }
 
+
 @graphs.route('/graphs/draw', methods=['GET'])
 def draw():
     def add_node_attr(nodes):
@@ -139,15 +140,47 @@ def draw():
             #     node['y'] = 50
         return nodes
 
-    nodes = redis.hget('nodes', '5fd0a07d3f1a9abb4c741b2f')
-    links = redis.hget('links', '5fd0a07d3f1a9abb4c741b2f')
-    if nodes and links:
-        nodes = json.loads(nodes)
-        links = json.loads(links)
-    else:
+    def get_nodes_and_links(user_id):
         nodes = []
         links = []
-    nodes = add_node_attr(nodes)
+        nodes_list = redis.lrange('graph_nodes_%s', 0, -1) % user_id
+        links_list = redis.lrange('graph_links_%s', 0, -1) % user_id
+
+        temp_nodes = {}
+        for node_id in nodes_list:
+            node_dict = {
+                'is_fixed': True,
+                'symbolSize': 50
+            }
+            node = redis.hget('nodes', node_id)
+            name = node.get('name')
+            type = node.get('type')
+            node_dict['name'] = name
+            node_dict['symbol'] = 'image://%s' % IMG_MAPPING.get(type).get('b64code')
+            nodes.append(name)
+
+            temp_nodes[node_id] = name
+
+        for link_id in links_list:
+            link_dict = {}
+            link = redis.hget('links', link_id)
+            link_dict['source'] = temp_nodes.get(link.get('source_node_id'))
+            link_dict['target'] = temp_nodes.get(link.get('target_node_id'))
+            links.append(link_dict)
+        return nodes, links
+
+    # nodes = redis.hget('nodes', '5fd0a07d3f1a9abb4c741b2f')
+    # links = redis.hget('links', '5fd0a07d3f1a9abb4c741b2f')
+    # if nodes and links:
+    #     nodes = json.loads(nodes)
+    #     links = json.loads(links)
+    # else:
+    #     nodes = []
+    #     links = []
+    # nodes = add_node_attr(nodes)
+
+    user_id = '5fd0a07d3f1a9abb4c741b2f'
+    nodes, links = get_nodes_and_links(user_id)
 
     filename = get_current_time_str() + get_random_str()
     fp = os.path.join(TEMP_GRAPH_BASE_IMG_PATH, filename + '.png')

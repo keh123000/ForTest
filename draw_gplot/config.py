@@ -6,7 +6,7 @@ class Config(object):
 
 
 class DevConfig(Config):
-    REDIS_DATABASE_URI = 'redis://:123456@192.168.1.178:6379/0'
+    REDIS_DATABASE_URI = 'redis://:123456@192.168.0.178:16379/0'
     DEBUG = True
     # SQLALCHEMY_DATABASE_URI = "mysql+pymysql://username:password@host:port/dbname"
     # SQLALCHEMY_ECHO = True

@@ -6,7 +6,7 @@
 
 from mongoengine import *
 
-host ='192.168.1.178'
+host ='192.168.0.178'
 port = 27017
 user = 'test'
 password = '123456'

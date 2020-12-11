@@ -88,20 +88,21 @@ def add_node():
     node = node_get_by_user_id_and_node_name(user_id, name)
     if not node:
         try:
-            node_add(user_id, name, describe, type, slot_id, port_id, remote_port_id)
+            node = node_add(user_id, name, describe, type, slot_id, port_id, remote_port_id)
             status = 1
             message = 'SUCCESS'
         except Exception as e:
+            node = None
             print(e)
     else:
-        node = convertMongoToDict(node)
         status = 2
         message = 'Already Exist'
-        data = {
-            'create_time': node.get('create_time'),
-            'node_id': node.get('_id')
+    node = convertMongoToDict(node)
+    data = {
+        'create_time': node.get('create_time'),
+        'node_id': node.get('_id')
 
-        }
+    }
 
     return jsonify(
         {
