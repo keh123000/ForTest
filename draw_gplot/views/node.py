@@ -91,18 +91,21 @@ def add_node():
             node = node_add(user_id, name, describe, type, slot_id, port_id, remote_port_id)
             status = 1
             message = 'SUCCESS'
+            node = convertMongoToDict(node)
+            cache_add_graph_data('nodes', node, user_id)
         except Exception as e:
             node = None
             print(e)
     else:
         status = 2
         message = 'Already Exist'
-    node = convertMongoToDict(node)
-    data = {
-        'create_time': node.get('create_time'),
-        'node_id': node.get('_id')
+        node = convertMongoToDict(node)
+    if node:
+        data = {
+            'create_time': node.get('create_time'),
+            'node_id': node.get('_id')
 
-    }
+        }
 
     return jsonify(
         {
@@ -118,7 +121,7 @@ def get_nodes_by_user_id(user_id):
     data = nodes_get_by_user_id(user_id)
     data = convertMongoToDict(list(data))
 
-    cache_add_graph_data('nodes', user_id, data)
+    cache_add_graph_data('nodes', data, user_id)
     return {
         'status': 0,
         'message': 'SUCCESS',

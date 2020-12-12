@@ -127,24 +127,16 @@ def get_graphs():
     }
 
 
-@graphs.route('/graphs/draw', methods=['GET'])
-def draw():
-    def add_node_attr(nodes):
-        for node in nodes:
-            node['symbol'] = 'image://%s' % IMG_MAPPING.get(node['type']).get('b64code')
-            node['symbolSize'] = 50
-            # node['value'] = ['0.0.0.0']
-            node['is_fixed'] = True
-            # if node['name'] == 'Core router':
-            #     node['x'] = 50
-            #     node['y'] = 50
-        return nodes
+@graphs.route('/graphs/draw', methods=['POST'])
+def draw(user_id=None, title='网络拓扑图'):
+    if not user_id:
+        user_id = request.form.get('user_id')
 
     def get_nodes_and_links(user_id):
         nodes = []
         links = []
-        nodes_list = redis.lrange('graph_nodes_%s', 0, -1) % user_id
-        links_list = redis.lrange('graph_links_%s', 0, -1) % user_id
+        nodes_list = redis.lrange('graph_nodes_%s' % user_id, 0, -1)
+        links_list = redis.lrange('graph_links_%s' % user_id, 0, -1)
 
         temp_nodes = {}
         for node_id in nodes_list:
@@ -153,33 +145,24 @@ def draw():
                 'symbolSize': 50
             }
             node = redis.hget('nodes', node_id)
+            node = json.loads(node)
             name = node.get('name')
-            type = node.get('type')
+            types = node.get('type')
             node_dict['name'] = name
-            node_dict['symbol'] = 'image://%s' % IMG_MAPPING.get(type).get('b64code')
-            nodes.append(name)
+            node_dict['symbol'] = 'image://%s' % IMG_MAPPING.get(types).get('b64code')
+            nodes.append(node_dict)
 
-            temp_nodes[node_id] = name
+            temp_nodes[str(node_id, encoding='utf-8')] = name
 
         for link_id in links_list:
             link_dict = {}
             link = redis.hget('links', link_id)
+            link = json.loads(link)
             link_dict['source'] = temp_nodes.get(link.get('source_node_id'))
             link_dict['target'] = temp_nodes.get(link.get('target_node_id'))
             links.append(link_dict)
         return nodes, links
 
-    # nodes = redis.hget('nodes', '5fd0a07d3f1a9abb4c741b2f')
-    # links = redis.hget('links', '5fd0a07d3f1a9abb4c741b2f')
-    # if nodes and links:
-    #     nodes = json.loads(nodes)
-    #     links = json.loads(links)
-    # else:
-    #     nodes = []
-    #     links = []
-    # nodes = add_node_attr(nodes)
-
-    user_id = '5fd0a07d3f1a9abb4c741b2f'
     nodes, links = get_nodes_and_links(user_id)
 
     filename = get_current_time_str() + get_random_str()
@@ -187,7 +170,7 @@ def draw():
     page = os.path.join(TEMP_GRAPH_BASE_PAGE_PATH, filename + '.html')
 
     dg = DrawGraph()
-    dg.setting(title='网络拓扑图', line_width=2).exec_draw(nodes, links).save_img(fp, page)
+    dg.setting(title=title, line_width=2).exec_draw(nodes, links).save_img(fp, page)
     b64code = get_b64code(fp)
 
     # os.remove(page)

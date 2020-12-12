@@ -87,15 +87,18 @@ def add_link():
     link = link_get_by_userid_and_source_and_target(user_id, source_node_id, target_node_id)
     if not link:
         try:
-            link_add(user_id, source_node_id, target_node_id, describe, rome_port_id1, rome_port_id2)
+            link = link_add(user_id, source_node_id, target_node_id, describe, rome_port_id1, rome_port_id2)
             status = 1
             message = 'SUCCESS'
+            link = convertMongoToDict(link)
+            cache_add_graph_data('links', link, user_id)
         except Exception as e:
             print(e)
     else:
-        link = convertMongoToDict(link)
         status = 2
         message = 'Already Exist'
+        link = convertMongoToDict(link)
+    if link:
         data = {
             'create_time': link.get('create_time'),
             'link_id': link.get('_id')
@@ -115,7 +118,7 @@ def add_link():
 def get_links_by_user_id(user_id):
     data = links_get_by_user_id(user_id)
     data = convertMongoToDict(list(data))
-    cache_add_graph_data('links',user_id,data)
+    cache_add_graph_data('links', data, user_id)
     return {
         'status': 0,
         'message': 'SUCCESS',
