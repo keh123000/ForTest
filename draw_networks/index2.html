@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>拓扑图绘制</title>
+
+    <!-- <link href="static/css/bootstrap.min.css" rel="stylesheet">
+    <script src="static/js/bootstrap.min.js"></script>
+    <script src="static/js/jquery-3.5.1.min.js"></script> -->
+
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
+
+    <!-- 生产环境版本，优化了尺寸和速度 -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+
+    <style>
+        .container {
+            width: 1440px;
+        }
+
+        div {
+            border: 1px solid #ff0000;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-7" style="height: 500px;">
+            <div class="row">
+                <div class="col-md-7" style="height: 500px;">
+                    <div class="row">
+                        <div class="col-md-12" style="text-align: center; padding-top: 20px;">
+                            <button type="button" class="btn btn-outline-primary" onclick="addNode();"
+                                    data-target="#addNodeModal" data-toggle="modal">添加节点
+                            </button>
+                        </div>
+                        <div class="col-md-12">
+                            <div style="margin: 1px;">
+                                <table class="table">
+                                    <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col">id</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Desc</th>
+                                        <th scope="col">Port</th>
+                                        <th scope="col">View</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>1024</td>
+                                        <td>
+                                            <button type="button" class="btn btn-info">查看</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">2</th>
+                                        <td>Jacob</td>
+                                        <td>Thornton</td>
+                                        <td>1024</td>
+                                        <td>
+                                            <button type="button" class="btn btn-info">查看</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">3</th>
+                                        <td>Larry</td>
+                                        <td>the Bird</td>
+                                        <td>1024</td>
+                                        <td>
+                                            <button type="button" class="btn btn-info">查看</button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5" style="height: 500px;">
+                    <div class="row">
+                        <div class="col-md-12" style="text-align: center; padding-top: 20px;">
+                            <button type="button" class="btn btn-outline-primary" onclick="addLink();"
+                                    data-target="#addNodeModal" data-toggle="modal">添加关系
+                            </button>
+                        </div>
+                        <div class="col-md-12">
+                            <div style="margin: 1px;">
+                                <h4 style="padding: 5px;">已有关系如下：</h4>
+
+                                <table class="table">
+                                    <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col">id</th>
+                                        <th scope="col">source</th>
+                                        <th scope="col">target</th>
+                                        <th scope="col">detail</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>
+                                            <button type="button" class="btn btn-info">详情</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">2</th>
+                                        <td>Jacob</td>
+                                        <td>Thornton</td>
+                                        <td>
+                                            <button type="button" class="btn btn-info">详情</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">3</th>
+                                        <td>Larry</td>
+                                        <td>the Bird</td>
+                                        <td>
+                                            <button type="button" class="btn btn-info">详情</button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5" style="height: 500px;">
+            <div class="row">
+                <div class="col-12" style="height: 100px; text-align: center; vertical-align: middle;">
+                    <button type="button" class="btn btn-outline-success">生成拓扑图</button>
+                </div>
+                <div class="col-12">
+                    <img src="static/img/result.png" class="img-thumbnail imgitem" style="width: 100%; height: 100%;"
+                         onclick="BigBig(this.src, this.width, this.height);" data-target="#imgModal"
+                         data-toggle="modal"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 放大图片模态框（Modal） -->
+<div class="modal fade" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-body" align="center">
+            <img src="" id="image">
+        </div>
+    </div>
+</div>
+
+<!-- 添加节点信息模态框（Modal） -->
+<div class="modal fade" id="addNodeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-header" align="center">
+            <h4>节点类型</h4>
+        </div>
+        <div class="modal-body" align="center">
+            <div>
+                <!-- Example single danger button -->
+                <div class="btn-group">
+                    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                        Action
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Separated link</a>
+                    </div>
+                </div>
+                <div>
+                    <form>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4">Email</label>
+                                <input type="email" class="form-control" id="inputEmail4">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputPassword4">Password</label>
+                                <input type="password" class="form-control" id="inputPassword4">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputAddress">Address</label>
+                            <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputAddress2">Address 2</label>
+                            <input type="text" class="form-control" id="inputAddress2"
+                                   placeholder="Apartment, studio, or floor">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputCity">City</label>
+                                <input type="text" class="form-control" id="inputCity">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="inputState">State</label>
+                                <select id="inputState" class="form-control">
+                                    <option selected>Choose...</option>
+                                    <option>...</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="inputZip">Zip</label>
+                                <input type="text" class="form-control" id="inputZip">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="gridCheck">
+                                <label class="form-check-label" for="gridCheck">
+                                    Check me out
+                                </label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Sign in</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer" align="center">
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function BigBig(src, width, height) {
+        $('#imgModal').on('show.bs.modal', function () {
+            var modal = $(this);
+            modal.find('.modal-dialog').css({'margin-left': (document.body.clientWidth - width * 1.5) / 2 + 'px'})
+            modal.find('.modal-body #image').attr("src", src)
+                .attr("width", width * 1.5)
+                .attr("height", height * 1.5);
+        });
+    }
+
+    function addNode() {
+        $('#addNodeModal').on('shown.bs.modal', function () {
+
+        })
+    }
+
+    function addLink() {
+        $('#addNodeModal').on('shown.bs.modal', function () {
+
+        })
+    }
+
+</script>
+</body>
+</html>

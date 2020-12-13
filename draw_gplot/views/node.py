@@ -120,21 +120,20 @@ def add_node():
 def get_nodes_by_user_id(user_id):
     data = nodes_get_by_user_id(user_id)
     data = convertMongoToDict(list(data))
-
     cache_add_graph_data('nodes', data, user_id)
-    return {
-        'status': 0,
+    return jsonify({
+        'status': 1,
         'message': 'SUCCESS',
         'data': data
-    }
+    })
 
 
 @nodes.route('/nodes', methods=['GET'])
 def get_nodes():
     data = get_all_nodes()
     data = convertMongoToDict(list(data))
-    return {
-        'status': 0,
+    return jsonify({
+        'status': 1,
         'message': 'SUCCESS',
         'data': data
-    }
+    })

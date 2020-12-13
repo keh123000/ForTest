@@ -4,6 +4,7 @@
 # @Email   : 26467568@qq.com
 # @File    : app.py
 
+from flask_cors import *
 from flask_restful import Api
 from flask import Flask, render_template
 
@@ -11,6 +12,7 @@ from config import *
 
 app = Flask(__name__, static_folder='static', static_url_path='/static', template_folder='templates')
 
+CORS(app, supports_credentials=True)
 
 @app.route('/')
 def hello_world():
