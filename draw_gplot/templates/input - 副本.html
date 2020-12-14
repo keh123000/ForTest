@@ -1,0 +1,280 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- 新 Bootstrap 核心 CSS 文件 -->
+		<link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+		<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+		<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+
+		<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+		<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+		<style type="text/css">
+			.container {
+				width: 1440 px;
+			}
+
+			div {
+				border: 1px solid red;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<script type="text/javascript">
+			function storeData(formId) {
+				$.ajax({
+					type: "POST",
+					url: "http://127.0.0.1:1680/equipment",
+					data: $('#"+formId+"').serialize(),
+					async: false,
+					error: function(request) {
+						alert("Connection error");
+					},
+					success: function(data) {
+						alert(data);
+						// window.location.href = "跳转页面"
+					}
+				});
+			}
+		</script>
+
+
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12" style="height: 100px; text-align: center; padding-top: 40px;">
+					<div class="alert alert-success" role="alert" style="">
+						<span id="addResult">
+							数据录入成功
+						</span>
+					</div>
+				</div>
+				<div class="col-md-12" style="height: 600px;">
+					<div class="row">
+						<div class="col-md-2">
+
+						</div>
+						<div class="col-md-8">
+							<div class="row">
+								<div class="col-md-12">
+									<h3 style="text-align: center;">设备数据录入</h3>
+								</div>
+								<div class="col-md-12" style="margin-left: 10px;">
+									<ul class="nav nav-tabs">
+										<li class="nav-item">
+											<a class="nav-link active" data-toggle="tab" href="#OLT_or_STC">OLT</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" data-toggle="tab" href="#ODN">ODN</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" data-toggle="tab" href="#ONT_Array">ONT_Array</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" data-toggle="tab" href="#OLT_or_STC">STC</a>
+										</li>
+									</ul>
+
+								</div>
+								<div class="col-md-12">
+									<div class="tab-content" style="padding-top: 10px;">
+										<div role="tabpanel" class="tab-pane fade in active" id="OLT_or_STC">
+											<form id="inputForm_OLT_or_STC">
+												<div class="form-row">
+													<div class="form-group col-md-6">
+														<label for="equipmentName">设备名称</label>
+														<input type="text" class="form-control" id="equipmentName" name="name">
+													</div>
+													<div class="form-group col-md-6">
+														<label for="equipmentNumber">设备编号</label>
+														<input type="text" class="form-control" id="equipmentNumber" name="number">
+													</div>
+												</div>
+												<div class="form-row">
+													<div class="form-group col-md-4">
+														<label for="equipmentOwner">Owner</label>
+														<input type="text" class="form-control" id="equipmentOwner" name="owner">
+													</div>
+													<div class="form-group col-md-4">
+														<label for="equipmentIP">IP</label>
+														<input type="text" class="form-control" id="equipmentIP" name="ip">
+													</div>
+													<div class="form-group col-md-4">
+														<label for="equipmentSlot">Slot</label>
+														<input type="text" class="form-control" id="equipmentSlot" name="slot">
+													</div>
+												</div>
+												<div class="form-row">
+													<div class="form-group col-md-4">
+														<label for="equipmentPort">Port</label>
+														<input type="text" class="form-control" id="equipmentPort" name="port">
+													</div>
+													<div class="form-group col-md-4">
+														<label for="equipmentType">Type</label>
+														<input type="text" class="form-control" id="equipmentType" name="type">
+													</div>
+													<div class="form-group col-md-4">
+														<label for="equipmentRome">Rome</label>
+														<input type="text" class="form-control" id="equipmentRome" name="rome">
+													</div>
+												</div>
+												<!-- <div class="form-group">
+													<label for="equipmentDesc">设备描述</label>
+													<input type="text" class="form-control" id="equipmentDesc" placeholder="请输入描述信息 ...">
+												</div> -->
+												<div class="form-row">
+													<div class="form-group col-md-12">
+														<label for="equipmentDesc">设备描述</label>
+														<textarea class="form-control" rows="3" id="equipmentDesc" name="desc" placeholder="请输入描述信息 ..."></textarea>
+														<!-- <input type="text" class="form-control" id="equipmentDesc" placeholder="请输入描述信息 ..."> -->
+													</div>
+												</div>
+
+												<div class="row" style="padding-left: 35px;">
+													<div class="col-md-4">
+
+													</div>
+													<div class="col-md-3">
+														<button type="button" class="btn btn-primary" onclick="storeData('inputForm_OLT_or_STC')">提交</button>
+													</div>
+													<div class="col-md-5">
+														<button type="reset" class="btn btn-primary">重置</button>
+													</div>
+												</div>
+											</form>
+										</div>
+										<div role="tabpanel" class="tab-pane fade" id="ODN">
+											<form id="inputForm_ODN">
+												<div class="form-row">
+													<div class="form-group col-md-6">
+														<label for="equipmentName">设备名称</label>
+														<input type="text" class="form-control" id="equipmentName" name="name">
+													</div>
+													<div class="form-group col-md-6">
+														<label for="equipmentNumber">设备编号</label>
+														<input type="text" class="form-control" id="equipmentNumber" name="number">
+													</div>
+												</div>
+												<div class="form-row">
+													<div class="form-group col-md-6">
+														<label for="equipmentOwner">Owner</label>
+														<input type="text" class="form-control" id="equipmentOwner" name="owner">
+													</div>
+													<div class="form-group col-md-6">
+														<label for="equipmentType">Type</label>
+														<input type="text" class="form-control" id="equipmentType" name="type">
+													</div>
+
+												</div>
+												<div class="form-row">
+													<div class="form-group col-md-4">
+														<label for="equipmentInToRome">InToRome</label>
+														<input type="text" class="form-control" id="equipmentInToRome" name="inToRome">
+													</div>
+													<div class="form-group col-md-4">
+														<label for="equipmentOutToRome_1">OutToRome_1</label>
+														<input type="text" class="form-control" id="equipmentOutToRome_1" name="outToRome_1">
+													</div>
+													<div class="form-group col-md-4">
+														<label for="equipmentOutToRome_2">OutToRome_2(可变)</label>
+														<input type="text" class="form-control" id="equipmentOutToRome_2" name="outToRome_2">
+													</div>
+												</div>
+												<div class="form-row">
+													<div class="form-group col-md-12">
+														<label for="equipmentDesc">设备描述</label>
+														<textarea class="form-control" rows="3" id="equipmentDesc" name="desc" placeholder="请输入描述信息 ..."></textarea>
+													</div>
+												</div>
+												<div class="row" style="padding-left: 35px;">
+													<div class="col-md-4">
+
+													</div>
+													<div class="col-md-3">
+														<button type="button" class="btn btn-primary" onclick="storeData('inputForm_ODN')">提交</button>
+
+													</div>
+													<div class="col-md-5">
+
+														<button type="reset" class="btn btn-primary">重置</button>
+													</div>
+												</div>
+											</form>
+										</div>
+										<div role="tabpanel" class="tab-pane fade" id="ONT_Array">
+											<form id="inputForm_ONT_Array">
+												<div class="form-row">
+													<div class="form-group col-md-12">
+														<label for="equipmentName">设备名称</label>
+														<input type="text" class="form-control" id="equipmentName" name="name">
+													</div>
+													<!-- <div class="form-group col-md-6">
+														
+													</div> -->
+												</div>
+												<div class="form-row">
+													<div class="form-group col-md-6">
+														<label for="equipmentNumber">设备编号</label>
+														<input type="text" class="form-control" id="equipmentNumber" name="number">
+													</div>
+													<div class="form-group col-md-6">
+														<label for="equipmentOwner">Owner</label>
+														<input type="text" class="form-control" id="equipmentOwner" name="owner">
+													</div>
+												</div>
+												<div class="form-row">
+
+													<div class="form-group col-md-4">
+														<label for="equipmentOpToRome">OpToRome</label>
+														<input type="text" class="form-control" id="equipmentOpToRome" name="opToRome">
+													</div>
+													<div class="form-group col-md-4">
+														<label for="equipmentToStcByRome_1">ToStcByRome_1</label>
+														<input type="text" class="form-control" id="equipmentToStcByRome_1" name="toStcByRome_1">
+													</div>
+													<div class="form-group col-md-4">
+														<label for="equipmentToStcByRome_2">ToStcByRome_1</label>
+														<input type="text" class="form-control" id="equipmentToStcByRome_2" name="toStcByRome_2">
+													</div>
+												</div>
+												<div class="form-row">
+													<div class="form-group col-md-12">
+														<label for="equipmentDesc">设备描述</label>
+														<textarea class="form-control" rows="3" id="equipmentDesc" name="desc" placeholder="请输入描述信息 ..."></textarea>
+													</div>
+												</div>
+												<div class="row" style="padding-left: 35px;">
+													<div class="col-md-4">
+													</div>
+													<div class="col-md-3">
+														<button type="button" class="btn btn-primary" onclick="storeData('inputForm_ONT_Array')">提交</button>
+													</div>
+													<div class="col-md-5">
+														<button type="reset" class="btn btn-primary">重置</button>
+													</div>
+												</div>
+											</form>
+										</div>
+										<!-- <div role="tabpanel" class="tab-pane fade" id="STC">
+
+										</div> -->
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-2">
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>
