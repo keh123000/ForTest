@@ -8,7 +8,7 @@ from .cache import *
 
 class Link(Resource):
     def get(self, id):
-        status = 1
+        code = 1
         message = 'QUERY SUCCESS'
         data = link_get_by_id(id)
         if data:
@@ -20,47 +20,47 @@ class Link(Resource):
                 data['user'] = user_data
         return jsonify(
             {
-                'status': status,
+                'code': code,
                 'message': message,
                 'data': data
             }
         )
 
     def put(self, id):
-        status = 1
+        code = 1
         message = 'UPDATE SUCCESS'
         data = {}
-        link_update_by_id(id, status=0)
+        link_update_by_id(id, code=0)
         return jsonify(
             {
-                'status': status,
+                'code': code,
                 'message': message,
                 'data': data
             }
         )
 
     def patch(self, id):
-        status = 1
+        code = 1
         message = 'UPDATE SUCCESS'
         data = {}
-        link_update_by_id(id, status=0)
+        link_update_by_id(id, code=0)
         return jsonify(
             {
-                'status': status,
+                'code': code,
                 'message': message,
                 'data': data
             }
         )
 
     def delete(self, id):
-        status = 1
+        code = 1
         message = 'DELETE SUCCESS'
         data = {}
         # 更改连线状态做逻辑删除
-        link_update_by_id(id, status=0)
+        link_update_by_id(id, code=0)
         return jsonify(
             {
-                'status': status,
+                'code': code,
                 'message': message,
                 'data': data
             }
@@ -72,7 +72,7 @@ links = Blueprint('links', __name__)
 
 @links.route('/link', methods=['POST'])
 def add_link():
-    status = 0
+    code = 0
     message = 'FAIL'
     data = {}
 
@@ -88,14 +88,14 @@ def add_link():
     if not link:
         try:
             link = link_add(user_id, source_node_id, target_node_id, describe, rome_port_id1, rome_port_id2)
-            status = 1
+            code = 1
             message = 'SUCCESS'
             link = convertMongoToDict(link)
             cache_add_graph_data('links', link, user_id)
         except Exception as e:
             print(e)
     else:
-        status = 2
+        code = 2
         message = 'Already Exist'
         link = convertMongoToDict(link)
     if link:
@@ -107,7 +107,7 @@ def add_link():
 
     return jsonify(
         {
-            'status': status,
+            'code': code,
             'message': message,
             'data': data
         }
@@ -120,7 +120,7 @@ def get_links_by_user_id(user_id):
     data = convertMongoToDict(list(data))
     cache_add_graph_data('links', data, user_id)
     return {
-        'status': 0,
+        'code': 1,
         'message': 'SUCCESS',
         'data': data
     }
@@ -131,7 +131,7 @@ def get_links():
     data = get_all_links()
     data = convertMongoToDict(list(data))
     return {
-        'status': 0,
+        'code': 1,
         'message': 'SUCCESS',
         'data': data
     }

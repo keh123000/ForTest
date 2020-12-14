@@ -24,13 +24,22 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr v-for="item in getUserNodes()" :key="item._id">
+                        <tr v-for="item in getUserNodes(userId)" :key="item._id">
                           <th scope="row">{{item._id}}</th>
                           <td>{{item.name}}</td>
                           <td>{{item.describe }}</td>
                           <td>{{item.port_id}}</td>
                           <td>
                             <button type="button" class="btn btn-info" @click.prevent="viewNode(item._id)">查看</button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">1</th>
+                          <td>Mark</td>
+                          <td>Otto</td>
+                          <td>1024</td>
+                          <td>
+                            <button type="button" class="btn btn-info">查看</button>
                           </td>
                         </tr>
                       </tbody>
@@ -60,51 +69,69 @@
 </template>
 
 <script>
-import {
-  // addNode,
-  viewNodeById,
-  getNodesByUserId
-} from '../request/api'
+  import {
+    // addNode,
+    viewNodeById,
+    getNodesByUserId
+  } from '../request/api'
 
-export default {
-  name: 'Home',
-  components: {
+  export default {
+    name: 'Home',
+    components: {
 
-  },
-  data () {
-    return {
-      userId: 'keheng',
-      node_list: []
-    }
-  },
-  methods: {
-    //
-    // 获取用户节点信息
-    getUserNodes () {
-      var nodeList = []
-      var data = {
-        user_id: this.userId
-      }
-      getNodesByUserId(data)
-        .then(resp => {
-          console.log('result-status', resp.status)
-          if (resp.status === 1) {
-            nodeList = resp.data
-            return nodeList
-          }
-        })
-        .catch(error => {
-          console.log(error)
-        })
-      return nodeList
     },
-    viewNode (nodeId) {
-      var result = viewNodeById(nodeId)
-      console.log(result)
-      return {}
+    data() {
+      return {
+        userId: '5fd0a07d3f1a9abb4c741b2f',
+        nodeList: []
+      }
+    },
+    // created() {
+
+    //   getNodesByUserId(data)
+    //     .then(resp => {
+    //       if (resp.status === 1) {
+    //         this.nodeList = resp.data
+    //         console.log(nodeList)
+    //         // return nodeList
+    //       }
+    //     })
+    //     .catch(error => {
+    //       console.log(error)
+    //     })
+    //   }
+    // },
+    created:function(){
+      var a= []
+    },
+    methods: {
+      //
+      // 获取用户节点信息
+      getUserNodes(userId) {
+        var nodeList = []
+        var data = {
+          user_id: userId
+        }
+        getNodesByUserId(data)
+          .then(resp => {
+            if (resp.status === 1) {
+              nodeList = resp.data
+              console.log(nodeList)
+              return nodeList
+            }
+          })
+          .catch(error => {
+            console.log(error)
+          })
+        return nodeList
+      },
+      viewNode(nodeId) {
+        var result = viewNodeById(nodeId)
+        console.log(result)
+        return {}
+      }
     }
   }
-}
 </script>
 
 <style>

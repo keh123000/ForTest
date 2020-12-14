@@ -9,53 +9,53 @@ from .cache import *
 
 class Graph(Resource):
     def get(self, id):
-        status = 1
+        code = 1
         message = 'QUERY SUCCESS'
         data = graph_get_by_id(id)
         data = convertMongoToDict(data)
         return jsonify(
             {
-                'status': status,
+                'code': code,
                 'message': message,
                 'data': data
             }
         )
 
     def put(self, id):
-        status = 1
+        code = 1
         message = 'UPDATE SUCCESS'
         data = {}
-        graph_update_by_id(id, status=0)
+        graph_update_by_id(id, code=0)
         return jsonify(
             {
-                'status': status,
+                'code': code,
                 'message': message,
                 'data': data
             }
         )
 
     def patch(self, id):
-        status = 1
+        code = 1
         message = 'UPDATE SUCCESS'
         data = {}
-        graph_update_by_id(id, status=0)
+        graph_update_by_id(id, code=0)
         return jsonify(
             {
-                'status': status,
+                'code': code,
                 'message': message,
                 'data': data
             }
         )
 
     def delete(self, id):
-        status = 1
+        code = 1
         message = 'DELETE SUCCESS'
         data = {}
         # 更改节点状态做逻辑删除
-        graph_update_by_id(id, status=0)
+        graph_update_by_id(id, code=0)
         return jsonify(
             {
-                'status': status,
+                'code': code,
                 'message': message,
                 'data': data
             }
@@ -67,7 +67,7 @@ graphs = Blueprint('graphs', __name__)
 
 @graphs.route('/graph', methods=['POST'])
 def add_graph():
-    status = 0
+    code = 0
     message = 'FAIL'
     data = {}
 
@@ -82,13 +82,13 @@ def add_graph():
     if not graph:
         try:
             graph_add(user_id, nodes, links, img_b64code, name)
-            status = 1
+            code = 1
             message = 'SUCCESS'
         except Exception as e:
             print(e)
     else:
         graph = convertMongoToDict(graph)
-        status = 2
+        code = 2
         message = 'Already Exist'
         data = {
             'create_time': graph.get('create_time'),
@@ -98,7 +98,7 @@ def add_graph():
 
     return jsonify(
         {
-            'status': status,
+            'code': code,
             'message': message,
             'data': data
         }
@@ -110,7 +110,7 @@ def get_graphs_by_user_id(user_id):
     data = graphs_get_by_user_id(user_id)
     data = convertMongoToDict(list(data))
     return {
-        'status': 0,
+        'code': 0,
         'message': 'SUCCESS',
         'data': data
     }
@@ -121,7 +121,7 @@ def get_graphs():
     data = get_all_graphs()
     data = convertMongoToDict(list(data))
     return {
-        'status': 0,
+        'code': 0,
         'message': 'SUCCESS',
         'data': data
     }
@@ -178,7 +178,7 @@ def draw(user_id=None, title='网络拓扑图'):
 
     return jsonify(
         {
-            'status': 0,
+            'code': 0,
             'message': 'SUCCESS',
             'data': {
                 'filename': filename + '.png',

@@ -8,7 +8,7 @@ from .cache import *
 
 class Node(Resource):
     def get(self, id):
-        status = 1
+        code = 1
         message = 'QUERY SUCCESS'
         data = node_get_by_id(id)
         if data:
@@ -20,47 +20,47 @@ class Node(Resource):
                 data['user'] = user_data
         return jsonify(
             {
-                'status': status,
+                'code': code,
                 'message': message,
                 'data': data
             }
         )
 
     def put(self, id):
-        status = 1
+        code = 1
         message = 'UPDATE SUCCESS'
         data = {}
-        node_update_by_id(id, status=0)
+        node_update_by_id(id, code=0)
         return jsonify(
             {
-                'status': status,
+                'code': code,
                 'message': message,
                 'data': data
             }
         )
 
     def patch(self, id):
-        status = 1
+        code = 1
         message = 'UPDATE SUCCESS'
         data = {}
-        node_update_by_id(id, status=0)
+        node_update_by_id(id, code=0)
         return jsonify(
             {
-                'status': status,
+                'code': code,
                 'message': message,
                 'data': data
             }
         )
 
     def delete(self, id):
-        status = 1
+        code = 1
         message = 'DELETE SUCCESS'
         data = {}
         # 更改节点状态做逻辑删除
-        node_update_by_id(id, status=0)
+        node_update_by_id(id, code=0)
         return jsonify(
             {
-                'status': status,
+                'code': code,
                 'message': message,
                 'data': data
             }
@@ -72,7 +72,7 @@ nodes = Blueprint('nodes', __name__)
 
 @nodes.route('/node', methods=['POST'])
 def add_node():
-    status = 0
+    code = 0
     message = 'FAIL'
     data = {}
 
@@ -89,7 +89,7 @@ def add_node():
     if not node:
         try:
             node = node_add(user_id, name, describe, type, slot_id, port_id, remote_port_id)
-            status = 1
+            code = 1
             message = 'SUCCESS'
             node = convertMongoToDict(node)
             cache_add_graph_data('nodes', node, user_id)
@@ -97,7 +97,7 @@ def add_node():
             node = None
             print(e)
     else:
-        status = 2
+        code = 2
         message = 'Already Exist'
         node = convertMongoToDict(node)
     if node:
@@ -109,7 +109,7 @@ def add_node():
 
     return jsonify(
         {
-            'status': status,
+            'code': code,
             'message': message,
             'data': data
         }
@@ -122,7 +122,7 @@ def get_nodes_by_user_id(user_id):
     data = convertMongoToDict(list(data))
     cache_add_graph_data('nodes', data, user_id)
     return jsonify({
-        'status': 1,
+        'code': 1,
         'message': 'SUCCESS',
         'data': data
     })
@@ -133,7 +133,7 @@ def get_nodes():
     data = get_all_nodes()
     data = convertMongoToDict(list(data))
     return jsonify({
-        'status': 1,
+        'code': 1,
         'message': 'SUCCESS',
         'data': data
     })
