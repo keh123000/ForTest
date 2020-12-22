@@ -6,7 +6,7 @@
 
 from flask_cors import *
 from flask_restful import Api
-from flask import Flask, render_template,request
+from flask import Flask, render_template, request
 
 from config import *
 
@@ -18,15 +18,6 @@ CORS(app, supports_credentials=True)
 @app.route('/')
 def hello_world():
     return render_template('index.html')
-
-
-@app.route('/equipment', methods=['POST'])
-def input_equipment_data():
-    form = request.form.to_dict()
-    print(form)
-    # data = request.get_data(as_text=True)
-    # print(data)
-    return '添加成功'
 
 
 if __name__ == '__main__':
@@ -52,4 +43,4 @@ if __name__ == '__main__':
     api.add_resource(Graph, '/graph/<string:id>', endpoint='graph')
 
     app.debug = True
-    app.run(port=1680)
+    app.run(host='0.0.0.0', port=1680)

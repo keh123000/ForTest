@@ -2,9 +2,9 @@
   <div id="app">
     <div class="container">
       <div class="row">
-        <div class="col-md-7" style="height: 500px;">
+        <div class="col-md-7" style="">
           <div class="row">
-            <div class="col-md-7" style="height: 500px;">
+            <div class="col-md-7" style="">
               <div class="row">
                 <div class="col-md-12" style="text-align: center; padding-top: 20px;">
                   <button type="button" class="btn btn-outline-primary" data-target="#addNodeModal" data-toggle="modal"
@@ -115,8 +115,8 @@
         getNodesByUserId(data)
           .then(resp => {
             if (resp.status === 1) {
-              nodeList = resp.data
-              console.log(nodeList)
+              nodeList = resp.data;
+              console.log(nodeList);
               return nodeList
             }
           })
