@@ -37,7 +37,7 @@
                 </el-col>
                 <el-col :span="24">
                   <div class="grid-content">
-                    <el-image style="width: 100px; height: 100px" src="../assets/result.png" fit="cover"></el-image>
+                    <el-image style="width: 100%; height: 100%" src="http://192.168.1.168:1680/static/img/result.png" fit="fill"></el-image>
                   </div>
                 </el-col>
               </el-row>
