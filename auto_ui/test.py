@@ -41,12 +41,98 @@ import cv2
 # print(b[50])
 
 
-from auto_ui.ui_engine import ui_operation
-
-
-uoe = ui_operation.UiOperation()
-uoe.run()
+# from auto_ui.ui_engine import ui_operation
+#
+#
+# uoe = ui_operation.UiOperation()
+# uoe.run()
 
 # import numpy as np
 #
 # print(type(np.random.randint(0,1)))
+
+
+import os
+import functools
+import inspect
+
+
+# from .logger import info, error
+
+
+def get_secret_key(n: int = 16):
+    """
+    返回一个有n个byte那么长的一个string，用于加密。
+    :param len: 期望返回字符串的byte长度
+    :return: 随机生成的字符串
+    """
+    return os.urandom(n)
+
+
+def get_current_function_name():
+    """
+    获取当前执行函数的函数名
+    """
+    return inspect.stack()[1][3]
+
+
+def log(func):
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        try:
+            print('call %s(): args = %s ,kwargs = %s' % (func.__name__, args, kwargs))
+            return func(*args, **kwargs)
+        except Exception as e:
+            print("{0} is error,here are details:{1}".format(func.__name__,e))
+            raise e
+
+    return wrapper
+
+
+
+def log_with_param(param):
+    def decorator(func):
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            print('call %s():' % func.__name__)
+            print('args = {}'.format(args))
+            print('kwargs = {}'.format(kwargs))
+            print('log_param = {}'.format(param))
+            return func(*args, **kwargs)
+
+        return wrapper
+
+    return decorator
+
+
+def func_error_log(param):
+    def decorator(func):
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            try:
+                return func(*args, **kwargs)
+            except Exception as e:
+                print(e)
+                raise e
+
+            # return func(*args, **kwargs)
+
+        return wrapper
+
+    return decorator
+
+
+@log
+def test1(num):
+    a = num/0
+    return a
+
+
+def test2():
+    test1(10)
+    return 1
+
+try:
+    test2()
+except Exception as e:
+    print(e)

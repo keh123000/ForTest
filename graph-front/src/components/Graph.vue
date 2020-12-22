@@ -5,39 +5,79 @@
       <el-aside width="240px">Aside</el-aside>
       <el-container>
         <el-main>
-          <el-row :gutter="5">
-            <el-col :span="14">
-              <el-row :gutter="5">
+          <el-row :gutter="10">
+            <el-col :span="16">
+              <el-row :gutter="10">
                 <el-col :span="13">
                   <el-row :gutter="5">
                     <el-col :span="24">
-                      <div class="grid-content bg-purple">添加节点</div>
+                      <div class="grid-content">
+                        <el-button type="primary"> 添加节点</el-button>
+                      </div>
                     </el-col>
                     <el-col :span="24">
-                      <div class="grid-content bg-purple-light">节点数据</div>
+                      <div class="grid-content">
+                        <template>
+                          <el-table :data="tableData" style="width: 100%" max-height="540">
+                            <el-table-column fixed prop="date" label="日期" width="150">
+                            </el-table-column>
+                            <el-table-column prop="name" label="姓名" width="100">
+                            </el-table-column>
+                            <el-table-column prop="province" label="省份" width="100">
+                            </el-table-column>
+                            <el-table-column fixed="right" label="操作" width="120">
+                              <template slot-scope="scope">
+                                <el-button @click.native.prevent="deleteRow(scope.$index, tableData)" type="text" size="small">
+                                  详情
+                                </el-button>
+                              </template>
+                            </el-table-column>
+                          </el-table>
+                        </template>
+                      </div>
                     </el-col>
                   </el-row>
                 </el-col>
                 <el-col :span="11">
                   <el-row :gutter="5">
                     <el-col :span="24">
-                      <div class="grid-content bg-purple">添加连线</div>
+                      <div class="grid-content">
+                        <el-button type="primary"> 添加连线</el-button>
+                      </div>
                     </el-col>
                     <el-col :span="24">
-                      <div class="grid-content bg-purple-light">连线数据</div>
+                      <div class="grid-content bg-purple-light">
+                        <template>
+                          <el-table :data="tableData" style="width: 100%" max-height="540">
+                            <el-table-column fixed prop="date" label="日期" width="150">
+                            </el-table-column>
+                            <el-table-column prop="name" label="姓名" width="120">
+                            </el-table-column>
+                            <el-table-column fixed="right" label="操作" width="120">
+                              <template slot-scope="scope">
+                                <el-button @click.native.prevent="deleteRow(scope.$index, tableData)" type="text" size="small">
+                                  详情
+                                </el-button>
+                              </template>
+                            </el-table-column>
+                          </el-table>
+                        </template>
+                      </div>
                     </el-col>
                   </el-row>
                 </el-col>
               </el-row>
             </el-col>
-            <el-col :span="10">
+            <el-col :span="8">
               <el-row :gutter="5">
                 <el-col :span="24">
-                  <div class="grid-content bg-purple">生成拓扑图</div>
+                  <div class="grid-content">
+                    <el-button type="primary"> 生成拓扑图</el-button>
+                  </div>
                 </el-col>
                 <el-col :span="24">
                   <div class="grid-content">
-                    <el-image style="width: 100%; height: 100%" src="http://192.168.1.168:1680/static/img/result.png" fit="fill"></el-image>
+                    <el-image style="width: 100%; height: 100%" :src="url" fit="cover" preview-src-list="srcList"></el-image>
                   </div>
                 </el-col>
               </el-row>
@@ -56,24 +96,92 @@
     name: 'Graph',
     data() {
       return {
-        fits: ['fill'],
-        url: '../assets/result.png'
+        url: 'http://127.0.0.1:1680/static/img/result.png',
+        srcList: ['http://127.0.0.1:1680/static/img/result.png'],
+        tableData: [{
+          date: '2016-05-03',
+          name: '王小虎',
+          province: '上海',
+          city: '普陀区',
+          address: '上海市普陀区金沙江路 1518 弄',
+          zip: 200333
+        }, {
+          date: '2016-05-02',
+          name: '王小虎',
+          province: '上海',
+          city: '普陀区',
+          address: '上海市普陀区金沙江路 1518 弄',
+          zip: 200333
+        }, {
+          date: '2016-05-04',
+          name: '王小虎',
+          province: '上海',
+          city: '普陀区',
+          address: '上海市普陀区金沙江路 1518 弄',
+          zip: 200333
+        }, {
+          date: '2016-05-01',
+          name: '王小虎',
+          province: '上海',
+          city: '普陀区',
+          address: '上海市普陀区金沙江路 1518 弄',
+          zip: 200333
+        }, {
+          date: '2016-05-02',
+          name: '王小虎',
+          province: '上海',
+          city: '普陀区',
+          address: '上海市普陀区金沙江路 1518 弄',
+          zip: 200333
+        }, {
+          date: '2016-05-04',
+          name: '王小虎',
+          province: '上海',
+          city: '普陀区',
+          address: '上海市普陀区金沙江路 1518 弄',
+          zip: 200333
+        }, {
+          date: '2016-05-01',
+          name: '王小虎',
+          province: '上海',
+          city: '普陀区',
+          address: '上海市普陀区金沙江路 1518 弄',
+          zip: 200333
+        }, {
+          date: '2016-05-02',
+          name: '王小虎',
+          province: '上海',
+          city: '普陀区',
+          address: '上海市普陀区金沙江路 1518 弄',
+          zip: 200333
+        }, {
+          date: '2016-05-04',
+          name: '王小虎',
+          province: '上海',
+          city: '普陀区',
+          address: '上海市普陀区金沙江路 1518 弄',
+          zip: 200333
+        }, {
+          date: '2016-05-01',
+          name: '王小虎',
+          province: '上海',
+          city: '普陀区',
+          address: '上海市普陀区金沙江路 1518 弄',
+          zip: 200333
+        }]
       }
     }
   }
 </script>
 
 <style scoped>
-  div {
-    border: 1px red;
-  }
 
   .el-header,
   .el-footer {
     background-color: #B3C0D1;
     color: #333;
     text-align: center;
-    line-height: 60px;
+    line-height: 40px;
   }
 
   .el-aside {
@@ -87,7 +195,7 @@
     background-color: #E9EEF3;
     color: #333;
     text-align: center;
-    line-height: 160px;
+    line-height: 60px;
   }
 
   body>.el-container {
@@ -130,7 +238,7 @@
 
   .grid-content {
     border-radius: 4px;
-    min-height: 36px;
+    min-height: 20px;
   }
 
   .row-bg {
