@@ -10,6 +10,9 @@ import 'bootstrap/dist/js/bootstrap.min'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
+import VueWechatTitle from 'vue-wechat-title'; 
+Vue.use(VueWechatTitle)
+
 
 Vue.use(ElementUI)
 

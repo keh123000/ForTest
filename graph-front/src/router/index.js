@@ -7,17 +7,20 @@ import Graph from '@/components/Graph'
 
 Vue.use(Router)
 
+
 export default new Router({
+  mode: 'history',
   routes: [
+    // {
+    //   path: '/',
+    //   name: 'HelloWorld',
+    //   component: HelloWorld
+    // },
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
-    },
-    {
-      path: '/graph',
       name: 'Graph',
-      component: Graph
+      component: Graph,
+      meta: { title: "拓扑图" }
     },
     {
       path: '/home',

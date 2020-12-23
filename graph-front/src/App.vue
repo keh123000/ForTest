@@ -1,19 +1,20 @@
 <template>
   <div id="MainApp">
     <!-- <img src="./assets/logo.png"> -->
-    <router-view />
+    <!-- <router-view /> -->
+    <router-view v-wechat-title="$route.meta.title"/>
   </div>
 </template>
 
 <script>
-  export default {
-    name: 'App',
-    data() {
-      return {
+export default {
+  name: 'App',
+  data () {
+    return {
 
-      }
     }
   }
+}
 </script>
 
 <style>
@@ -28,7 +29,7 @@
     height: 100%;
     background-repeat: no-repeat;
     background-position: center;
-    background-image: url(./assets/bg.jpg);
+    background-image: url(./assets/bg-9.jpg);
     background-size: cover;
   }
 

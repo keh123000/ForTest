@@ -71,66 +71,66 @@
 </template>
 
 <script>
-  export default {
-    name: 'NodeForm',
-    props: {
-      selectedType: {
-        type: String,
-        required: true,
-        default: 'OLT'
-      },
-      nodeDialogFormVisible: {
-        type: Boolean,
-        required: true,
-        default: false
-      },
-      linkDialogFormVisible: {
-        type: Boolean,
-        required: true,
-        default: false
-      },
-      nodeFormData: {
-        type: Object,
-        required: true
-      },
-      linkFormData: {
-        type: Object,
-        required: true
-      }
+export default {
+  name: 'NodeForm',
+  props: {
+    selectedType: {
+      type: String,
+      required: true,
+      default: 'OLT'
     },
-    data() {
-      return {
-        formLabelWidth: '120px',
-      };
+    nodeDialogFormVisible: {
+      type: Boolean,
+      required: true,
+      default: false
     },
-    methods: {
-      handleClick() {
-        alert('button click');
-      },
-      changePropsValue(prop, value) {
-        this.$emit("nodePropsChanged", {
-          name: prop,
-          value: value
-        }); //自定义事件  传递值“子向父组件传值”
-      },
-      selectType(data) {
-        this.changePropsValue('selectedType', data)
-      },
-      changeNodeVisible() {
-        this.changePropsValue('nodeDialogFormVisible', false);
-      },
-      changeLinkVisible() {
-        this.changePropsValue('linkDialogFormVisible', false);
-      },
-      onDialogClosed() {
-        this.changeNodeVisible();
-        this.changeLinkVisible();
-      }
+    linkDialogFormVisible: {
+      type: Boolean,
+      required: true,
+      default: false
     },
-    watch: {
-
+    nodeFormData: {
+      type: Object,
+      required: true
+    },
+    linkFormData: {
+      type: Object,
+      required: true
     }
-  };
+  },
+  data () {
+    return {
+      formLabelWidth: '120px'
+    }
+  },
+  methods: {
+    handleClick () {
+      alert('button click')
+    },
+    changePropsValue (prop, value) {
+      this.$emit('nodePropsChanged', {
+        name: prop,
+        value: value
+      }) // 自定义事件  传递值“子向父组件传值”
+    },
+    selectType (data) {
+      this.changePropsValue('selectedType', data)
+    },
+    changeNodeVisible () {
+      this.changePropsValue('nodeDialogFormVisible', false)
+    },
+    changeLinkVisible () {
+      this.changePropsValue('linkDialogFormVisible', false)
+    },
+    onDialogClosed () {
+      this.changeNodeVisible()
+      this.changeLinkVisible()
+    }
+  },
+  watch: {
+
+  }
+}
 </script>
 
 <style scoped>
