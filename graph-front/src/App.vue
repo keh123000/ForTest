@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="MainApp">
     <!-- <img src="./assets/logo.png"> -->
     <router-view />
   </div>
@@ -7,16 +7,32 @@
 
 <script>
   export default {
-    name: 'App'
+    name: 'App',
+    data() {
+      return {
+
+      }
+    }
   }
 </script>
 
 <style>
-/*  #app {
-    width: 1450px;
+  html,
+  body,
+  #MainApp {
+    height: 100%;
   }
 
-  #app {
+  #MainApp {
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url(./assets/bg.jpg);
+    background-size: cover;
+  }
+
+  /* #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
