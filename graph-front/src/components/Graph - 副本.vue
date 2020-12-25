@@ -21,7 +21,7 @@
                     <el-row :gutter="5">
                       <el-col :span="24">
                         <div class="grid-content">
-                          <el-button type="primary" @click="onAddBtnClicked('node')"> 添加节点</el-button>
+                          <el-button type="primary" @click="nodeDialogFormVisible = true"> 添加节点</el-button>
                         </div>
                       </el-col>
                       <el-col :span="24">
@@ -52,7 +52,7 @@
                     <el-row :gutter="5">
                       <el-col :span="24">
                         <div class="grid-content">
-                          <el-button type="primary" @click="onAddBtnClicked('link')"> 添加连线</el-button>
+                          <el-button type="primary" @click="linkDialogFormVisible = true"> 添加连线</el-button>
                         </div>
                       </el-col>
                       <el-col :span="24">
@@ -124,12 +124,7 @@
         <el-aside width="240px"></el-aside>
       </el-container>
     </el-container>
-    <NodeForm v-on:propsChanged="updateBridgeProps" :formBridge="{
-          formVisible: this.formVisible,
-          formData: this.formData,
-          selectedType: this.selectedType,
-          isEdit: this.isEdit
-        }"></NodeForm>
+    <NodeForm v-on:nodePropsChanged="updateFormProps" :formBridge="formBridge"></NodeForm>
     <!-- <template>
       <div>
         <div id="nodes">
@@ -330,10 +325,8 @@
       handleClick(e) {
         alert(e.name)
       },
-      updateBridgeProps(e) {
-        if (e.name === 'formVisible') {
-          this.formVisible = e.value
-        }
+      updateFormProps(){
+
       },
       editRow(row, dataFlag) {
         if (dataFlag === 'node') {
@@ -343,14 +336,6 @@
         } else if (dataFlag === 'link') {
           this.linkFormData = row
           this.linkDialogFormVisible = true
-        }
-      },
-      onAddBtnClicked(dataFlag) {
-        this.formVisible = true
-        if (dataFlag === 'node') {
-
-        } else if (dataFlag === 'link') {
-
         }
       },
       deleteRow(index, rows) {

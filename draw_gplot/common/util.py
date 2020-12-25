@@ -82,26 +82,6 @@ def get_random_str(length=5):
     return ''.join(random.sample(string.ascii_letters + string.digits, length))
 
 
-def change_ip():
-    # Obtain network adaptors configurations
-    nic_configs = wmi.WMI().Win32_NetworkAdapterConfiguration(IPEnabled=True)
-
-    # First network adaptor
-    nic = nic_configs[0]
-    print(nic)
-
-    # IP address, subnetmask and gateway values should be unicode objects
-    ip = u'192.168.0.168'
-    subnetmask = u'255.255.255.0'
-    gateway = u'192.168.0.1'
-
-    # # Set IP address, subnetmask and default gateway
-    # # Note: EnableStatic() and SetGateways() methods require *lists* of values to be passed
-    # nic.EnableStatic(IPAddress=[ip], SubnetMask=[subnetmask])
-    # nic.SetGateways(DefaultIPGateway=[gateway])
-    return 1
-
-
 def convert_pic(src_fp, dst_fp=None, src_fmt='JPG', dst_fmt=None):
     if dst_fmt is None:
         dst_fmt = ['PNG']
@@ -141,10 +121,6 @@ def get_b64code(fp):
     return data
 
 
-# fp = 'D://DataCenter//tmp//fortest//img//AP.png'
-# get_b64code(fp)
-
-
 def read_json(fp):
     with open(fp, 'r') as f:
         load_dict = json.load(f)
@@ -155,21 +131,3 @@ def write_json(fp, data):
     with open(fp, "w") as f:
         json.dump(data, f)
     return 1
-
-#
-# src_fp = 'D://DataCenter//tmp//fortest//img'
-# for file in os.listdir(src_fp):
-#     file_name,suffix = os.path.splitext(file)
-#     data[file_name] = {
-#         'b64code': '',
-#         'url':''
-#     }
-#     src_file = os.path.join(src_fp, file)
-#     data[file_name]['b64code'] = get_b64code(src_file)
-#
-#
-# write_json(fp,data)
-
-#
-# a = read_json(fp)
-# print(a['AP'])
