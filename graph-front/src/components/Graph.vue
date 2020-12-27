@@ -130,6 +130,7 @@
           selectedType: this.selectedType,
           isEdit: this.isEdit
         }"></NodeForm>
+        
     <!-- <template>
       <div>
         <div id="nodes">
