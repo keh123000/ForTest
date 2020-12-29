@@ -89,11 +89,21 @@
         <h4>已添加属性信息</h4>
         <template>
           <el-table :data="tableData" height="275" border style="width: 100%;">
-            <el-table-column prop="date" label="名称" width="180">
+            <el-table-column prop="name" label="名称" width="200">
             </el-table-column>
-            <el-table-column prop="name" label="类型" width="180">
+            <el-table-column prop="type" label="类型" width="160">
             </el-table-column>
-            <el-table-column prop="address" label="说明">
+            <el-table-column prop="is_required" label="是否必填" width="140">
+            </el-table-column>
+            <el-table-column prop="comment" label="说明">
+            </el-table-column>
+            <el-table-column fixed="right" label="操作" width="120" align="center">
+              <template slot-scope="scope">
+                <!-- <el-button @click="editRow(scope.row,'node')" size="small" type="primary" icon="el-icon-edit"
+                  circle></el-button> -->
+                <el-button @click.native.prevent="deleteRow(scope.$index, nodeList)" size="small"
+                  type="danger" icon="el-icon-delete" circle></el-button>
+              </template>
             </el-table-column>
           </el-table>
         </template>
@@ -127,7 +137,8 @@
         addForm: {
           type: '',
           describe: '',
-          table_name: ''
+          table_name: '',
+          prop_list:[]
         },
         equip_prop: {
           'name': '',
@@ -192,7 +203,7 @@
   .inputo {
     width: 300px !important;
   }
-  
+
   h3 {
   }
 
