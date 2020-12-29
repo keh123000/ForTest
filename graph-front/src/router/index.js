@@ -5,17 +5,43 @@ import Home from '@/components/Home'
 import Product from '@/components/Product'
 import Graph from '@/components/Graph'
 
+import Form from '@/components/form'
+import Item from '@/components/item'
+import OrderList from "@/components/list"
+
+import Base from "@/components/Base"
+
+import AddEquip from "@/components/entry/AddEquip"
+
+
+
+
+Vue.component('dynamic-form', Form)
+Vue.component('dynamic-form-item', Item)
+
+
+
 Vue.use(Router)
 
 
 export default new Router({
   mode: 'history',
   routes: [
-    // {
-    //   path: '/',
-    //   name: 'HelloWorld',
-    //   component: HelloWorld
-    // },
+    {
+      path: '/AddEquip',
+      name: 'AddEquip',
+      component: AddEquip
+    },
+    {
+      path: '/base',
+      name: 'Base',
+      component: Base
+    },
+    {
+      path: '/list',
+      name: 'OrderList',
+      component: OrderList
+    },
     {
       path: '/',
       name: 'Graph',

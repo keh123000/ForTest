@@ -4,9 +4,8 @@
       <el-dialog title="添加节点信息" :visible.sync="formBridge.formVisible" :destroy-on-close='true' center>
         <el-dialog width="30%" title="查询结果" :visible.sync="innerVisible" append-to-body center="">
           <el-row>
-            <el-col :span="24">
-              <p>抱歉，未查到Rome信息！请手动输入Rome信息或放弃此节点的添加。</p>
-              <button>确定</button>
+            <el-col :span="0">
+              <span>抱歉，未查到Rome信息！请手动输入Rome信息或放弃此节点的添加。</span>
             </el-col>
             <el-col :span="24">
               <template>
@@ -34,6 +33,10 @@
               </template>
             </el-col>
           </el-row>
+          <span slot="footer" class="dialog-footer">
+            <el-button @click="innerVisible = false">取 消</el-button>
+            <el-button type="primary" @click="innerVisible = false">确 定</el-button>
+          </span>
         </el-dialog>
         <el-form ref="nodeForm" :model="formObj" label-width="180px" id="nodeForm">
           <el-row>
