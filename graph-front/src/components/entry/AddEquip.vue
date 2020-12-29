@@ -14,16 +14,16 @@
                   <el-row>
                     <el-col :span="14">
                       <el-row>
-                        <el-form-item label="设备类型" prop="type">
+                        <el-form-item label="设备类型" prop="type" required>
                           <el-input v-model="addForm.type" placeholder="请输入设备类型" class="inputo"></el-input>
                         </el-form-item>
-                        <el-form-item label="设备端口信息表名" prop="table_name">
+                        <el-form-item label="设备端口信息表名" prop="table_name" required>
                           <el-input v-model="addForm.table_name" placeholder="请输入设备端口信息表名" class="inputo"></el-input>
                         </el-form-item>
                       </el-row>
                     </el-col>
                     <el-col :span="8">
-                      <el-form-item label="设备描述" prop="describe">
+                      <el-form-item label="设备描述" prop="describe" required>
                         <el-input v-model="addForm.describe" placeholder="请输入设备描述" type="textarea" :autosize="{ minRows: 3, maxRows: 4}"
                           class="inputo"></el-input>
                       </el-form-item>
@@ -39,15 +39,15 @@
                 <h4>设备属性信息</h4>
               </el-col>
               <el-col :span="24">
-                <el-form ref="propForm" :model="equip_prop" label-width="180px" size="small">
+                <el-form ref="propForm" :model="equip_prop" :rules="propRules" label-width="180px" size="small">
                   <el-row>
                     <el-col :span="14">
-                      <el-form-item label="属性名称" prop="name">
+                      <el-form-item label="属性名称" prop="name" required>
                         <el-input v-model="equip_prop.name" placeholder="请输入属性名称" class="inputo"></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
-                      <el-form-item label="属性类型" prop="type">
+                      <el-form-item label="属性类型" prop="type" required>
                         <el-select v-model="equip_prop.type" placeholder="请选择属性类型" class="inputo">
                           <el-option label="整数" value="Int"></el-option>
                           <el-option label="字符串" value="String"></el-option>
@@ -57,14 +57,13 @@
                     </el-col>
                     <el-col :span="2"></el-col>
                     <el-col :span="14">
-                      <el-form-item label="属性说明" prop="comment">
-                        <el-input v-model="addForm.comment" placeholder="请输入属性说明" type="textarea" :autosize="{ minRows: 2, maxRows: 3}"
+                      <el-form-item label="属性说明" prop="comment" required>
+                        <el-input v-model="equip_prop.comment" placeholder="请输入属性说明" type="textarea" :autosize="{ minRows: 2, maxRows: 3}"
                           class="inputo"></el-input>
-                        <!-- <el-input v-model="equip_prop.comment" placeholder="请输入属性说明" class="inputo"></el-input> -->
                       </el-form-item>
                     </el-col>
                     <el-col :span="6">
-                      <el-form-item label="是否必填" prop="is_required">
+                      <el-form-item label="是否必填" prop="is_required" required>
                         <el-radio-group v-model="equip_prop.is_required">
                           <el-radio :label="true">是</el-radio>
                           <el-radio :label="false">否</el-radio>
@@ -74,8 +73,8 @@
                     <el-col :span="4"></el-col>
                     <el-col :span="24">
                       <el-form-item>
-                        <el-button type="primary" @click="submitForm('ruleForm')">添加</el-button>
-                        <el-button @click="resetForm('ruleForm')">重置</el-button>
+                        <el-button type="primary" @click="submitForm('propForm')">添加</el-button>
+                        <el-button @click="resetForm('propForm')">重置</el-button>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -88,21 +87,21 @@
       <el-col :span="24">
         <h4>已添加属性信息</h4>
         <template>
-          <el-table :data="tableData" height="275" border style="width: 100%;">
-            <el-table-column prop="name" label="名称" width="200">
+          <el-table :data="addForm.prop_list" height="275" border style="width: 100%;">
+            <el-table-column prop="name" label="名称" width="200" align="center">
             </el-table-column>
-            <el-table-column prop="type" label="类型" width="160">
+            <el-table-column prop="type" label="类型" width="160" align="center" :formatter="formatType">
             </el-table-column>
-            <el-table-column prop="is_required" label="是否必填" width="140">
+            <el-table-column prop="is_required" label="是否必填" width="140" align="center" :formatter="formatIsRequired">
             </el-table-column>
-            <el-table-column prop="comment" label="说明">
+            <el-table-column prop="comment" label="说明" align="center">
             </el-table-column>
             <el-table-column fixed="right" label="操作" width="120" align="center">
               <template slot-scope="scope">
                 <!-- <el-button @click="editRow(scope.row,'node')" size="small" type="primary" icon="el-icon-edit"
                   circle></el-button> -->
-                <el-button @click.native.prevent="deleteRow(scope.$index, nodeList)" size="small"
-                  type="danger" icon="el-icon-delete" circle></el-button>
+                <el-button @click.native.prevent="deleteRow(scope.$index, addForm.prop_list)" size="small" type="danger"
+                  icon="el-icon-delete" circle></el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -111,7 +110,7 @@
       <el-col :span="24">
         <el-row>
           <el-col :span="18">
-
+            <div>s</div>
           </el-col>
           <el-col :span="6">
             <el-button @click="resetForm('ruleForm')">重置</el-button>
@@ -125,87 +124,102 @@
 </template>
 
 <script>
-  import Base from '../Base.vue'
-  export default {
-    name: 'AddEquip',
-    components: {
-      Base
-    },
-    data() {
-      return {
-        title: '新增设备类型',
-        addForm: {
-          type: '',
-          describe: '',
-          table_name: '',
-          prop_list:[]
-        },
-        equip_prop: {
-          'name': '',
-          'type': '',
-          'is_required': false,
-          'comment': ''
-        },
-        tableData: [{
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
+import Base from '../Base.vue'
+export default {
+  name: 'AddEquip',
+  components: {
+    Base
+  },
+  data () {
+    return {
+      title: '新增设备类型',
+      addForm: {
+        type: '',
+        describe: '',
+        table_name: '',
+        prop_list: []
+      },
+      equip_prop: {
+        'name': '',
+        'type': '',
+        'is_required': false,
+        'comment': ''
+      },
+      propRules: {
+        name: [{
+          required: true,
+          message: '请输入属性名称'
         }, {
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-08',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-06',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-07',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
+          min: 3,
+          max: 30,
+          message: '长度在 3 到 30 个字符'
         }]
       }
-    },
-    props: {
-
-    },
-    created() {},
-    mounted() {
-      // this.setDefaultValue();
-    },
-    methods: {
-
     }
-  };
+  },
+  props: {
+
+  },
+  created () {},
+  mounted () {
+    // this.setDefaultValue();
+  },
+  methods: {
+    submitForm (form) {
+      if (form === 'propForm') {
+        this.addForm.prop_list.push({
+          name: this.equip_prop.name,
+          type: this.equip_prop.type,
+          is_required: this.equip_prop.is_required,
+          comment: this.equip_prop.comment
+        })
+        // this.resetForm(form)
+      }
+    },
+    resetForm (form) {
+      this.$refs.propForm.resetFields()
+    },
+    deleteRow (index, rows) {
+      rows.splice(index, 1)
+    },
+    formatIsRequired (row, column) {
+      switch (row.is_required) {
+        case true:
+          return '是'
+
+        case false:
+          return '否'
+
+        default:
+          return ''
+      }
+    },
+    formatType (row, column) {
+      switch (row.type) {
+        case 'Int':
+          return '整数'
+
+        case 'String':
+          return '字符串'
+
+        case 'Datetime':
+          return '日期时间'
+
+        default:
+          return ''
+      }
+    }
+  }
+}
 </script>
 
 <style scoped>
- /* #AddEquip {
-    width: 100%;
-    height: 100%;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-image: url(./assets/bg.jpg);
-    background-size: cover;
-  } */
-
+  /* https://www.cnblogs.com/steamed-twisted-roll/p/10167501.html */
   .inputo {
     width: 300px !important;
   }
 
-  h3 {
-  }
+  h3 {}
 
   /* .el-row {
     margin-bottom: 20px;

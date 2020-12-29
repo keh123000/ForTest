@@ -2,7 +2,7 @@
   <el-container>
     <el-header>
       <Header>
-       <template v-slot:header>
+        <template v-slot:header>
           {{title}}
         </template>
       </Header>
@@ -44,10 +44,12 @@
       RightSide
     },
     data() {
+      return {
 
+      }
     },
     props: {
-      title:{
+      title: {
         type: String,
         default: () => ''
       }

@@ -5,7 +5,9 @@
   export default {
     name: 'LeftSide',
     data() {
-  
+      return {
+      
+      }
     },
     props: {
   
