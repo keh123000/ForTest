@@ -115,8 +115,8 @@
             <div>s</div>
           </el-col>
           <el-col :span="6">
-            <el-button @click="resetForm('ruleForm')">重置</el-button>
-            <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
+            <el-button @click="resetForm('addForm')">重置</el-button>
+            <el-button type="primary" @click="submitForm('addForm')">提交</el-button>
           </el-col>
         </el-row>
       </el-col>
@@ -127,6 +127,13 @@
 
 <script>
   import Base from '../Base.vue'
+
+  import {
+    // addNode,
+    addEquip
+  } from '../../request/api'
+
+
   export default {
     name: 'AddEquip',
     components: {
@@ -174,10 +181,13 @@
             type: this.equip_prop.type,
             is_required: this.equip_prop.is_required,
             comment: this.equip_prop.comment
-
           })
-          this.resetForm(form)
+
         }
+        else if (form === 'addForm') {
+          this.addEquipment()
+        }
+        this.resetForm(form)
       },
       resetForm(form) {
         if (form === 'propForm') {
@@ -189,6 +199,25 @@
       },
       deleteRow(index, rows) {
         rows.splice(index, 1)
+      },
+      // 添加设备信息
+      addEquipment() {
+        var nodeList = []
+        var data = this.addForm
+        addEquip(this.addForm)
+          .then(resp => {
+            console.log(resp)
+            if (resp.code === 200) {
+              // nodeList = resp.data
+              // this.nodeList = resp.data
+              // console.log(nodeList)
+              // return nodeList
+            }
+          })
+          .catch(error => {
+            console.log(error)
+          })
+        return nodeList
       },
       formatIsRequired(row, column) {
         switch (row.is_required) {

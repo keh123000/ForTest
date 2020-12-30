@@ -1,7 +1,7 @@
 import axios from 'axios'
 // 环境的切换
 if (process.env.NODE_ENV === 'development') {
-  axios.defaults.baseURL = 'http://127.0.0.1:1680/' // 开发环境
+  axios.defaults.baseURL = 'http://127.0.0.1:1688/' // 开发环境
 } else if (process.env.NODE_ENV === 'debug') {
   axios.defaults.baseURL = '' // 调试环境
 } else if (process.env.NODE_ENV === 'production') {
@@ -24,13 +24,13 @@ x-www-form-urlencoded
 设置默认提交json
 把数据对象序列化成json字符串
 */
-//axios.defaults.headers['Content-Type'] = 'application/json'; //设置默认提交json
-//axios.defaults.transformRequest = data => JSON.stringify(data) //把数据对象序列化成json字符串
+axios.defaults.headers['Content-Type'] = 'application/json;charset=UTF-8'; //设置默认提交json
+// axios.defaults.transformRequest = data => JSON.stringify(data) //把数据对象序列化成json字符串
 
-// axios.defaults.headers.post['Content-Type'] =' application/json';
-// axios.defaults.headers.put['Content-Type'] = 'application/json';
+// axios.defaults.headers.post['Content-Type'] =' application/json;charset=UTF-8';
+// axios.defaults.headers.put['Content-Type'] = 'application/json;charset=UTF-8';
 
-axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
+// axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
 
 
 /*

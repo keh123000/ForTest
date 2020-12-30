@@ -35,4 +35,4 @@ export const viewLinkById = p => axios_get("/link/" + p.node_id, p);
 // 端口数据录入
 
 // 添加设备信息
-export const addEquip = p => axios_get("/equip", p);
+export const addEquip = p => axios_post("/entry/api/v1/equip", p);
