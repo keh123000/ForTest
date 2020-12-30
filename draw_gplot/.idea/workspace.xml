@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="480e6aea-b43f-4f4a-8ece-5b85079b6f95" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/draw_gplot.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/draw_gplot.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../graph-front/src/components/NodeForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../graph-front/src/components/NodeForm.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../graph-front/src/components/entry/AddEquip.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../graph-front/src/components/entry/AddEquip.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../graph-front/src/request/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/../graph-front/src/request/api.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -148,7 +147,7 @@
       </list>
     </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="false" />
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -172,11 +171,12 @@
       <workItem from="1608860112876" duration="394000" />
       <workItem from="1608860629449" duration="622000" />
       <workItem from="1608958294391" duration="598000" />
+      <workItem from="1609233750183" duration="2636000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">

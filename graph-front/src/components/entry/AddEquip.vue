@@ -86,26 +86,28 @@
       </el-col>
       <el-col :span="24">
         <h4>已添加属性信息</h4>
-        <template>
-          <el-table :data="addForm.prop_list" height="275" border style="width: 100%;">
-            <el-table-column prop="name" label="名称" width="200" align="center">
-            </el-table-column>
-            <el-table-column prop="type" label="类型" width="160" align="center" :formatter="formatType">
-            </el-table-column>
-            <el-table-column prop="is_required" label="是否必填" width="140" align="center" :formatter="formatIsRequired">
-            </el-table-column>
-            <el-table-column prop="comment" label="说明" align="center">
-            </el-table-column>
-            <el-table-column fixed="right" label="操作" width="120" align="center">
-              <template slot-scope="scope">
-                <!-- <el-button @click="editRow(scope.row,'node')" size="small" type="primary" icon="el-icon-edit"
-                  circle></el-button> -->
-                <el-button @click.native.prevent="deleteRow(scope.$index, addForm.prop_list)" size="small" type="danger"
-                  icon="el-icon-delete" circle></el-button>
-              </template>
-            </el-table-column>
-          </el-table>
-        </template>
+        <div class="prop_table">
+          <template>
+            <el-table :data="addForm.prop_list" height="310" border style="width: 80%;">
+              <el-table-column prop="name" label="名称" width="200" align="center">
+              </el-table-column>
+              <el-table-column prop="type" label="类型" width="160" align="center" :formatter="formatType">
+              </el-table-column>
+              <el-table-column prop="is_required" label="是否必填" width="140" align="center" :formatter="formatIsRequired">
+              </el-table-column>
+              <el-table-column prop="comment" label="说明" align="center">
+              </el-table-column>
+              <el-table-column fixed="right" label="操作" width="120" align="center">
+                <template slot-scope="scope">
+                  <!-- <el-button @click="editRow(scope.row,'node')" size="small" type="primary" icon="el-icon-edit"
+                    circle></el-button> -->
+                  <el-button @click.native.prevent="deleteRow(scope.$index, addForm.prop_list)" size="small" type="danger"
+                    icon="el-icon-delete" circle></el-button>
+                </template>
+              </el-table-column>
+            </el-table>
+          </template>
+        </div>
       </el-col>
       <el-col :span="24">
         <el-row>
@@ -124,93 +126,99 @@
 </template>
 
 <script>
-import Base from '../Base.vue'
-export default {
-  name: 'AddEquip',
-  components: {
-    Base
-  },
-  data () {
-    return {
-      title: '新增设备类型',
-      addForm: {
-        type: '',
-        describe: '',
-        table_name: '',
-        prop_list: []
+  import Base from '../Base.vue'
+  export default {
+    name: 'AddEquip',
+    components: {
+      Base
+    },
+    data() {
+      return {
+        title: '新增设备类型',
+        addForm: {
+          type: '',
+          describe: '',
+          table_name: '',
+          prop_list: []
+        },
+        equip_prop: {
+          'name': '',
+          'type': '',
+          'is_required': false,
+          'comment': ''
+        },
+        propRules: {
+          name: [{
+            required: true,
+            message: '请输入属性名称'
+          }, {
+            min: 3,
+            max: 30,
+            message: '长度在 3 到 30 个字符'
+          }]
+        }
+      }
+    },
+    props: {
+
+    },
+    created() {},
+    mounted() {
+      // this.setDefaultValue();
+    },
+    methods: {
+      submitForm(form) {
+        if (form === 'propForm') {
+          this.addForm.prop_list.push({
+            name: this.equip_prop.name,
+            type: this.equip_prop.type,
+            is_required: this.equip_prop.is_required,
+            comment: this.equip_prop.comment
+
+          })
+          this.resetForm(form)
+        }
       },
-      equip_prop: {
-        'name': '',
-        'type': '',
-        'is_required': false,
-        'comment': ''
+      resetForm(form) {
+        if (form === 'propForm') {
+          this.$refs.propForm.resetFields()
+        }
+        else if (form === 'addForm') {
+          this.$refs.addForm.resetFields()
+        }
       },
-      propRules: {
-        name: [{
-          required: true,
-          message: '请输入属性名称'
-        }, {
-          min: 3,
-          max: 30,
-          message: '长度在 3 到 30 个字符'
-        }]
-      }
-    }
-  },
-  props: {
+      deleteRow(index, rows) {
+        rows.splice(index, 1)
+      },
+      formatIsRequired(row, column) {
+        switch (row.is_required) {
+          case true:
+            return '是'
 
-  },
-  created () {},
-  mounted () {
-    // this.setDefaultValue();
-  },
-  methods: {
-    submitForm (form) {
-      if (form === 'propForm') {
-        this.addForm.prop_list.push({
-          name: this.equip_prop.name,
-          type: this.equip_prop.type,
-          is_required: this.equip_prop.is_required,
-          comment: this.equip_prop.comment
-        })
-        // this.resetForm(form)
-      }
-    },
-    resetForm (form) {
-      this.$refs.propForm.resetFields()
-    },
-    deleteRow (index, rows) {
-      rows.splice(index, 1)
-    },
-    formatIsRequired (row, column) {
-      switch (row.is_required) {
-        case true:
-          return '是'
+          case false:
+            return '否'
 
-        case false:
-          return '否'
+          default:
+            return ''
+        }
+      },
+      formatType(row, column) {
+        switch (row.type) {
+          case 'Int':
+            return '整数'
 
-        default:
-          return ''
-      }
-    },
-    formatType (row, column) {
-      switch (row.type) {
-        case 'Int':
-          return '整数'
+          case 'String':
+            return '字符串'
 
-        case 'String':
-          return '字符串'
+          case 'Datetime':
+            return '日期时间'
 
-        case 'Datetime':
-          return '日期时间'
-
-        default:
-          return ''
+          default:
+            return ''
+        }
       }
     }
   }
-}
 </script>
 
 <style scoped>
@@ -220,6 +228,10 @@ export default {
   }
 
   h3 {}
+
+  .prop_table {
+
+  }
 
   /* .el-row {
     margin-bottom: 20px;

@@ -30,3 +30,9 @@ export const addLink = p => axios_post("/link", p);
 export const getLinksByUserId = p => axios_get("/links/" + p.user_id, p);
 // 查看单一节点信息
 export const viewLinkById = p => axios_get("/link/" + p.node_id, p);
+
+
+// 端口数据录入
+
+// 添加设备信息
+export const addEquip = p => axios_get("/equip", p);
