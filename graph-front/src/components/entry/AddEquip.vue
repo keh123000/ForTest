@@ -187,7 +187,7 @@
         else if (form === 'addForm') {
           this.addEquipment()
         }
-        this.resetForm(form)
+        // this.resetForm(form)
       },
       resetForm(form) {
         if (form === 'propForm') {

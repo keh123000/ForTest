@@ -4,8 +4,8 @@
     :status-icon="formConfig.statusIcon">
     <div class="formWrap" v-for="parentItem in formConfig.tabs" :key="parentItem.name" :label="parentItem.label" :name="parentItem.name"
       v-show="true">
-      <dynamic-form-item v-for="item in parentItem.formItemList" :key="item.key" :item="item" :value="item.value"
-        v-if="item.value!==undefined&&item.show!=false" @input="handleInput($event, item.key)" :style="{'min-width':columnMinWidth}"></dynamic-form-item>
+      <dynamic-form-item v-for="item in parentItem.formItemList" :key="item.key" :item="item" :value="value[item.key]"
+        v-if="value[item.key]!==undefined&&item.show!=false" @input="handleInput($event, item.key)" :style="{'min-width':columnMinWidth}"></dynamic-form-item>
     </div>
     <slot />
   </el-form>

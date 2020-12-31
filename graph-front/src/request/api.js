@@ -36,3 +36,7 @@ export const viewLinkById = p => axios_get("/link/" + p.node_id, p);
 
 // 添加设备信息
 export const addEquip = p => axios_post("/entry/api/v1/equip", p);
+// 获取所有设备基础信息
+export const getAllEquips = p => axios_get("/entry/api/v1/equips", p);
+// 根据表名获取表结构信息
+export const getTableProps = p => axios_get("/entry/api/v1/table/" + p.table_name);

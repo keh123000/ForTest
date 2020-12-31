@@ -12,6 +12,7 @@ import OrderList from "@/components/list"
 import Base from "@/components/Base"
 
 import AddEquip from "@/components/entry/AddEquip"
+import InputHome from "@/components/entry/InputHome"
 
 
 
@@ -26,7 +27,11 @@ Vue.use(Router)
 
 export default new Router({
   mode: 'history',
-  routes: [
+  routes: [{
+      path: '/InputHome',
+      name: 'InputHome',
+      component: InputHome
+    },
     {
       path: '/AddEquip',
       name: 'AddEquip',
@@ -46,7 +51,9 @@ export default new Router({
       path: '/',
       name: 'Graph',
       component: Graph,
-      meta: { title: "拓扑图" }
+      meta: {
+        title: "拓扑图"
+      }
     },
     {
       path: '/home',

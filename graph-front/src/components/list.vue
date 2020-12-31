@@ -15,7 +15,6 @@
 
         formInfo: {
           platOrderNo: "",
-
           orderType: "",
           wareId: "",
           area: [],
@@ -27,7 +26,6 @@
           goodsSkuRangeType: "2",
           goodsSkuRangeNum: "",
           tradeTime: [],
-
           nick: "",
           shopId: "",
           goodsSku: ""
