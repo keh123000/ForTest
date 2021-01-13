@@ -13,6 +13,7 @@ import Base from "@/components/Base"
 
 import AddEquip from "@/components/entry/AddEquip"
 import InputHome from "@/components/entry/InputHome"
+import ManageEquip from "@/components/entry/ManageEquip"
 
 
 
@@ -27,7 +28,13 @@ Vue.use(Router)
 
 export default new Router({
   mode: 'history',
-  routes: [{
+  routes: [
+    {
+      path: '/ManageEquip',
+      name: 'ManageEquip',
+      component: ManageEquip
+    },
+    {
       path: '/InputHome',
       name: 'InputHome',
       component: InputHome

@@ -207,7 +207,8 @@
         addEquip(this.addForm)
           .then(resp => {
             console.log(resp)
-            if (resp.code === 200) {
+            if (resp.code === 201) {
+              this.$router.push('/InputHome')
               // nodeList = resp.data
               // this.nodeList = resp.data
               // console.log(nodeList)

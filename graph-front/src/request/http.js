@@ -1,7 +1,7 @@
 import axios from 'axios'
 // 环境的切换
 if (process.env.NODE_ENV === 'development') {
-  axios.defaults.baseURL = 'http://127.0.0.1:1688/' // 开发环境
+  axios.defaults.baseURL = 'http://192.168.1.168:1688/' // 开发环境
 } else if (process.env.NODE_ENV === 'debug') {
   axios.defaults.baseURL = '' // 调试环境
 } else if (process.env.NODE_ENV === 'production') {

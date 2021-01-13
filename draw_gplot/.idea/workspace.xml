@@ -3,12 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="480e6aea-b43f-4f4a-8ece-5b85079b6f95" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../graph-front/src/components/entry/AddEquip.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../graph-front/src/components/entry/AddEquip.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../graph-front/src/components/entry/InputHome.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../graph-front/src/components/entry/InputHome.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../graph-front/src/components/form.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../graph-front/src/components/form.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../graph-front/src/components/list.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../graph-front/src/components/list.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../graph-front/src/request/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/../graph-front/src/request/api.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../graph-front/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../graph-front/src/router/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +15,17 @@
       <list>
         <option value="Python Script" />
       </list>
+    </option>
+  </component>
+  <component name="FlaskConsoleOptions" custom-start-script="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))">
+    <envs>
+      <env key="FLASK_APP" value="app" />
+    </envs>
+    <option name="myCustomStartScript" value="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))" />
+    <option name="myEnvs">
+      <map>
+        <entry key="FLASK_APP" value="app" />
+      </map>
     </option>
   </component>
   <component name="Git.Settings">
@@ -40,7 +46,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../ProjectDocument/MyWorkPro/hermes_tool" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -144,14 +150,14 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.app" />
         <item itemvalue="Python.redis_db" />
-        <item itemvalue="Python.__init__" />
         <item itemvalue="Python.manage" />
+        <item itemvalue="Python.app" />
+        <item itemvalue="Python.__init__" />
       </list>
     </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="false" />
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -177,11 +183,17 @@
       <workItem from="1608958294391" duration="598000" />
       <workItem from="1609233750183" duration="2636000" />
       <workItem from="1609329374017" duration="1306000" />
+      <workItem from="1609723168345" duration="131000" />
+      <workItem from="1609723818862" duration="2000" />
+      <workItem from="1609724262544" duration="57000" />
+      <workItem from="1609724331217" duration="326000" />
+      <workItem from="1609724667663" duration="2066000" />
+      <workItem from="1609809336517" duration="5249000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -194,12 +206,6 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="2381" y="162" key="SettingsEditor" timestamp="1609330561248">
-      <screen x="1920" y="0" width="1920" height="1040" />
-    </state>
-    <state x="2381" y="162" key="SettingsEditor/0.0.1280.680/1920.0.1920.1040@1920.0.1920.1040" timestamp="1609330561248" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/draw_gplot$redis_db.coverage" NAME="redis_db Coverage Results" MODIFIED="1607741034289" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/common" />

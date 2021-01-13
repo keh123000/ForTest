@@ -6,7 +6,7 @@
 
   .inputo,
   .selecto {
-    width: 200px !important;
+    width: 300px !important;
   }
 
   .form-itemo {
@@ -17,7 +17,7 @@
 
 <template>
   <el-form-item class="form-itemo" :rules="Rules" :label="item.label" :prop="item.key" v-if="!item.isHide" :class="{'block':item.block}">
-    
+
     <el-input v-if="item.type==='input'" v-bind="$attrs" v-on="$listeners" :type="item.subtype" :min="item.min" :max="item.max"
       :minlength="item.minlength" :maxlength="item.maxlength" autocomplete="off" :placeholder="item.placeholder"
       :disabled="item.disabled" :readonly="item.readonly" :autosize="item.autosize" :clearable="item.clearable" class="inputo">
@@ -95,7 +95,11 @@
         area: []
       };
     },
-    methods: {},
+    methods: {
+      updateView(e) {
+          this.$forceUpdate()
+      }
+    },
     computed: {
       Rules() {
         var that = this;

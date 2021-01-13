@@ -36,7 +36,17 @@ export const viewLinkById = p => axios_get("/link/" + p.node_id, p);
 
 // 添加设备信息
 export const addEquip = p => axios_post("/entry/api/v1/equip", p);
+// 更新设备信息
+export const updateEquip = p => axios_put("/entry/api/v1/equip/"+ p.ID, p);
+// 删除设备信息
+export const deleteEquip = p => axios_delete("/entry/api/v1/equip/"+ p.ID);
 // 获取所有设备基础信息
 export const getAllEquips = p => axios_get("/entry/api/v1/equips", p);
+
 // 根据表名获取表结构信息
 export const getTableProps = p => axios_get("/entry/api/v1/table/" + p.table_name);
+
+// 新增端口信息
+export const addPort = p => axios_post("/entry/api/v1/port/" + p.table_name, p);
+// 查询最新端口数据
+export const getLatestPortData = p => axios_get("/entry/api/v1/ports/" + p.table_name, p);
