@@ -48,5 +48,7 @@ export const getTableProps = p => axios_get("/entry/api/v1/table/" + p.table_nam
 
 // 新增端口信息
 export const addPort = p => axios_post("/entry/api/v1/port/" + p.table_name, p);
+// 更新端口信息
+export const updatePort = p => axios_put("/entry/api/v1/port/" + p.table_name + "/" + p.ID, p);
 // 查询最新端口数据
 export const getLatestPortData = p => axios_get("/entry/api/v1/ports/" + p.table_name, p);

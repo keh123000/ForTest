@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="480e6aea-b43f-4f4a-8ece-5b85079b6f95" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../graph-front/src/components/entry/InputHome.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../graph-front/src/components/entry/InputHome.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../graph-front/src/components/form.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../graph-front/src/components/form.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../graph-front/src/request/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/../graph-front/src/request/api.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -188,7 +189,10 @@
       <workItem from="1609724262544" duration="57000" />
       <workItem from="1609724331217" duration="326000" />
       <workItem from="1609724667663" duration="2066000" />
-      <workItem from="1609809336517" duration="5249000" />
+      <workItem from="1609809336517" duration="5461000" />
+      <workItem from="1610585659094" duration="597000" />
+      <workItem from="1611122065680" duration="590000" />
+      <workItem from="1611885653002" duration="593000" />
     </task>
     <servers />
   </component>

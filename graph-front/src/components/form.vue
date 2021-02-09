@@ -27,7 +27,8 @@
     addEquip,
     getAllEquips,
     getTableProps,
-    addPort
+    addPort,
+    updatePort
   } from '../request/api'
 
   export default {
@@ -35,9 +36,6 @@
     data() {
       // 密码验证
       return {
-        activeName: "1",
-        tabs: [],
-        activeName: 0,
         formData: {},
         // formInfo: {},
         // 注册表单项们
@@ -73,18 +71,27 @@
         type: String
       }
     },
+    watch: {
+       equip_type(newV,oldV) {
+         this.formData = {};
+         this.formItemData = [];
+         this.getInputForm(this.equip_type);
+         console.log(newV,oldV)
+       }
+    },
     created() {
-      this.getInputForm(this.equip_type)
+      this.getInputForm(this.equip_type);
     },
     mounted() {
       // this.setDefaultValue();
+
     },
     methods: {
       onSubmit(form) {
 
       },
 
-      resetForm(form){
+      resetForm(form) {
         this.$refs[form].resetFields()
       },
 
@@ -105,9 +112,12 @@
       },
 
       updatePortInfo() {
-        let data = this.formData
+        let data = this.formInfo
         data['table_name'] = this.equip_type
-        addPort(data)
+
+        console.log('updatePortInfo')
+        console.log(data)
+        updatePort(data)
           .then(resp => {
             if (resp.code === 201) {
               this.$emit("refreshTable", {
@@ -121,6 +131,11 @@
       },
 
       getInputForm(equip_type) {
+
+        // if (this.formInfo != {}) {
+        //   this.formData = this.formInfo
+        // }
+
         getTableProps({
             table_name: equip_type
           })
@@ -174,7 +189,7 @@
           tempFormObj[item.COLUMN_NAME] = ""
         })
         this.formData = tempFormObj
-        if (this.formInfo == {}){
+        if (this.formInfo == {}) {
           this.formInfo = tempFormObj
         }
         return formItemList
